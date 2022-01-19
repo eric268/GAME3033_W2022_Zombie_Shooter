@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 67e9c84f4b6c9fa4d8edf2ffa7529709
+guid: 43fd45a9cb6b88c4b89b7ca72c89bb38
 ModelImporter:
   serializedVersion: 21100
   internalIDToNameTable:
@@ -11,7 +11,7 @@ ModelImporter:
     materialImportMode: 2
     materialName: 0
     materialSearch: 1
-    materialLocation: 0
+    materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -526,18 +526,18 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: Idle(Clone)
+    - name: James(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Mesh
-      parentName: Idle(Clone)
+      parentName: James(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Hips
-      parentName: Idle(Clone)
+      parentName: James(Clone)
       position: {x: 0.006239561, y: 0.829404, z: -0.0011225432}
       rotation: {x: 6.7762616e-17, y: 0.00000002328306, z: 0.0000000029103826, w: 1}
       scale: {x: 1, y: 1, z: 0.9999999}
