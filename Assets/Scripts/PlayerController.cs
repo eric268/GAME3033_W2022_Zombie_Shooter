@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    //Movement Variables
     public bool isFiring;
     public bool isReloading;
     public bool isJumping;

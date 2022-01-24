@@ -22,6 +22,7 @@ public class MovementComponent : MonoBehaviour
     Vector2 inputVector = Vector2.zero;
     Vector3 moveDirection = Vector3.zero;
 
+    //Hash values for animator
     public readonly int movementXHash = Animator.StringToHash("MovementX");
     public readonly int movementYHash = Animator.StringToHash("MovementY");
     public readonly int isJumpingHash = Animator.StringToHash("isJumping");
@@ -43,6 +44,7 @@ public class MovementComponent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Sets movement to zero if no input is received 
         if (!(inputVector.magnitude > 0)) moveDirection = Vector3.zero;
 
         moveDirection = transform.forward * inputVector.y + transform.right * inputVector.x;
@@ -51,6 +53,8 @@ public class MovementComponent : MonoBehaviour
         Vector3 movementDirection = moveDirection * currentSpeed * Time.fixedDeltaTime;
 
         rigidBody.AddForce(movementDirection, ForceMode.VelocityChange);
+        
+        //Assist in slowing player 
         rigidBody.velocity *= 0.99f;
     }
 
@@ -74,6 +78,7 @@ public class MovementComponent : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
+        //Checks if player is grounded
         if (collision.gameObject.CompareTag("Ground"))
         {
             playerController.isJumping = false;
@@ -82,6 +87,7 @@ public class MovementComponent : MonoBehaviour
     }
     private void OnCollisionExit(Collision collision)
     {
+        //Checks if player is not grounded
         if (collision.gameObject.CompareTag("Ground"))
         {
             playerController.isJumping = true;
