@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 72241bd8039d2fc43bf9bbc266c18ad3
+guid: bfd35774d21c9704d9f7d1dd036a7886
 ModelImporter:
   serializedVersion: 21100
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: Run Backwards
+    second: Strafe Run Right
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -35,20 +35,20 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Run Backwards
+      name: Strafe Run Right
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 16
+      lastFrame: 20
       wrapMode: 0
-      orientationOffsetY: -35
+      orientationOffsetY: -100
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
       loopBlend: 0
-      loopBlendOrientation: 0
+      loopBlendOrientation: 1
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
