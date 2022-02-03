@@ -17,10 +17,13 @@ public class MovementComponent : MonoBehaviour
     PlayerController playerController;
     Rigidbody rigidBody;
     Animator animator;
+    public GameObject followTransform;
 
     //Movement references
     Vector2 inputVector = Vector2.zero;
     Vector3 moveDirection = Vector3.zero;
+    Vector2 lookInput = Vector2.zero;
+    public float aimSensativity = 1;
 
     //Hash values for animator
     public readonly int movementXHash = Animator.StringToHash("MovementX");
@@ -42,8 +45,28 @@ public class MovementComponent : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+        followTransform.transform.rotation *= Quaternion.AngleAxis(lookInput.x * aimSensativity, Vector3.up);
+        followTransform.transform.rotation *= Quaternion.AngleAxis(lookInput.y * aimSensativity, Vector3.left);
+
+        var angles = followTransform.transform.localEulerAngles;
+        angles.z = 0;
+        var angle = followTransform.transform.localEulerAngles.x;
+
+        if (angle > 180 && angle < 340)
+        {
+            angles.x = 340;
+        }
+        else if (angle < 180 && angle > 40)
+        {
+            angles.x = 40;
+        }
+
+        followTransform.transform.localEulerAngles = angles;
+        transform.rotation = Quaternion.Euler(0, followTransform.transform.rotation.eulerAngles.y, 0);
+        followTransform.transform.localEulerAngles = new Vector3(angles.x, 0, 0);
+
         //Sets movement to zero if no input is received 
         if (!(inputVector.magnitude > 0)) moveDirection = Vector3.zero;
 
@@ -55,7 +78,7 @@ public class MovementComponent : MonoBehaviour
         rigidBody.AddForce(movementDirection, ForceMode.VelocityChange);
         
         //Assist in slowing player 
-        rigidBody.velocity *= 0.99f;
+        rigidBody.velocity *= 0.97f;
     }
 
     public void OnMovement(InputValue value)
@@ -76,6 +99,25 @@ public class MovementComponent : MonoBehaviour
             rigidBody.AddForce((transform.up + moveDirection) * jumpForce, ForceMode.Impulse);
         }
     }
+
+    public void OnAim(InputValue value)
+    {
+        playerController.isAiming = value.isPressed;
+    }
+    public void OnLook(InputValue value)
+    {
+        lookInput = value.Get<Vector2>();
+        //If we aim up down adjust animations
+    }
+    public void OnReload(InputValue value)
+    {
+
+    }
+    public void OnFire(InputValue value)
+    {
+        playerController.isFiring = value.isPressed;
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         //Checks if player is grounded
