@@ -23,7 +23,7 @@ public class AKComponent : WeaponComponent
         }
         else if (weaponStats.bulletInClip <= 0)
         {
-            //Trigger reload
+            weaponHolder.StartReloading();
         }
     }
 }

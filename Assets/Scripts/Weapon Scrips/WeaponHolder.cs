@@ -53,12 +53,7 @@ public class WeaponHolder : MonoBehaviour
             animator.SetIKPosition(AvatarIKGoal.LeftHand, gripSocketLocation.transform.position);
         }
     }
-    public void OnReload(InputValue value)
-    {
-        playerController.isReloading = value.isPressed;
-        animator.SetBool(isReloadingHash, playerController.isReloading);
-        animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 0);
-    }
+
     public void OnFire(InputValue value)
     {
         playerController.isFiring = value.isPressed;
@@ -90,5 +85,17 @@ public class WeaponHolder : MonoBehaviour
         animator.SetBool(isFiringHash, false);
         playerController.isFiring = false;
         equippedWeapon.StopFiringWeapon();
+    }
+
+    public void OnReload(InputValue value)
+    {
+        playerController.isReloading = value.isPressed;
+        animator.SetBool(isReloadingHash, playerController.isReloading);
+        animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 0);
+    }
+
+    public void StartReloading()
+    {
+
     }
 }
