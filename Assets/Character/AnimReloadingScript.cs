@@ -19,8 +19,12 @@ public class AnimReloadingScript : StateMachineBehaviour
     // OnStateExit is called before OnStateExit is called on any state inside this state machine
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.gameObject.GetComponent<PlayerController>().isReloading = false;
-        animator.SetBool(isReloading, false);
+        if (stateInfo.IsTag("Reload"))
+        {
+            animator.gameObject.GetComponent<PlayerController>().isReloading = false;
+            animator.SetBool(isReloading, false);
+        }
+
     }
 
     // OnStateMove is called before OnStateMove is called on any state inside this state machine
