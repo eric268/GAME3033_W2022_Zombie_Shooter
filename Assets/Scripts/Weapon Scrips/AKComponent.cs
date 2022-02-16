@@ -7,8 +7,10 @@ public class AKComponent : WeaponComponent
     protected override void FireWeapon()
     { 
         Vector3 hitLocation;
-        
-        if(weaponStats.bulletInClip > 0 && !isReloading && !weaponHolder.playerController.isRunning)
+        if (firingEffect)
+            firingEffect.Play();
+
+        if(weaponStats.bulletInClip > 0 && !isReloading)
         {
             base.FireWeapon();
 

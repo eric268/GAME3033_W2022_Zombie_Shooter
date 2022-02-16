@@ -34,7 +34,9 @@ public class WeaponComponent : MonoBehaviour
     public WeaponStats weaponStats;
     protected WeaponHolder weaponHolder;
     protected Camera mainCamera;
-
+    
+    [SerializeField]
+    protected ParticleSystem firingEffect;
     private void Awake()
     {
         mainCamera = Camera.main;
@@ -59,8 +61,10 @@ public class WeaponComponent : MonoBehaviour
     public virtual void StartFiringWeapon()
     {
         isFiring = true;
+
         if (weaponStats.repeating)
         {
+            CancelInvoke(nameof(FireWeapon));
             InvokeRepeating(nameof(FireWeapon), weaponStats.fireStartDelay, weaponStats.fireRate);
         }
         else
@@ -73,6 +77,9 @@ public class WeaponComponent : MonoBehaviour
     {
         isFiring = false;
         CancelInvoke(nameof(FireWeapon));
+
+        if (firingEffect && firingEffect.isPlaying)
+            firingEffect.Stop();
     }   
     protected virtual void FireWeapon()
     {
@@ -92,18 +99,20 @@ public class WeaponComponent : MonoBehaviour
     }
     protected virtual void ReloadWeapon()
     {
+        if (firingEffect && firingEffect.isPlaying)
+            firingEffect.Stop();
         //Check to see if there is a firing effect
-        int bulletsToReload = weaponStats.clipSize - weaponStats.totalBullets;
+        int bulletsToReload = weaponStats.totalBullets - weaponStats.clipSize;
 
         if (bulletsToReload < 0)
         {
             weaponStats.bulletInClip = weaponStats.totalBullets;
-            weaponStats.totalBullets -= weaponStats.clipSize;
+            weaponStats.totalBullets = 0;
         }
         else
         {
-            weaponStats.bulletInClip = weaponStats.totalBullets;
-            weaponStats.totalBullets = 0;
+            weaponStats.bulletInClip = weaponStats.clipSize;
+            weaponStats.totalBullets -= weaponStats.clipSize;
         }
 
     }

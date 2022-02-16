@@ -38,6 +38,7 @@ public class WeaponHolder : MonoBehaviour
         equippedWeapon = spawnedWeapon.GetComponent<WeaponComponent>();
         gripSocketLocation = equippedWeapon.gripLocation;
         equippedWeapon.Initalize(this);
+        PlayerEvents.InvokeOnWeaponEquipped(equippedWeapon);
     }
 
     // Update is called once per frame
@@ -58,7 +59,7 @@ public class WeaponHolder : MonoBehaviour
     {
         playerController.isFiring = value.isPressed;
         firingPressed = playerController.isFiring;
-        if (firingPressed)
+        if (!playerController.isReloading && firingPressed)
         {
             StartFiring();
         }
@@ -90,8 +91,11 @@ public class WeaponHolder : MonoBehaviour
 
     public void OnReload(InputValue value)
     {
-        playerController.isReloading = value.isPressed;
-        StartReloading();
+        if (!playerController.isReloading)
+        {
+            playerController.isReloading = value.isPressed;
+            StartReloading();
+        }
     }
 
     public void StartReloading()
