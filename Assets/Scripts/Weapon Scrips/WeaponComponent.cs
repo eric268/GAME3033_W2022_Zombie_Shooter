@@ -22,6 +22,7 @@ public struct WeaponStats
     public float fireDistance;
     public bool repeating;
     public LayerMask weaponHitLayer;
+    public int totalBullets;
 }
 
 
@@ -42,7 +43,7 @@ public class WeaponComponent : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void Initalize(WeaponHolder _weaponHolder)
@@ -78,5 +79,32 @@ public class WeaponComponent : MonoBehaviour
         print("Firing weapon");
         weaponStats.bulletInClip--;
         print(weaponStats.bulletInClip);
+    }
+
+    public virtual void StartReloading()
+    {
+        isReloading = true;
+        ReloadWeapon();
+    }
+    public virtual void StopReloading()
+    {
+        isReloading = false;
+    }
+    protected virtual void ReloadWeapon()
+    {
+        //Check to see if there is a firing effect
+        int bulletsToReload = weaponStats.clipSize - weaponStats.totalBullets;
+
+        if (bulletsToReload < 0)
+        {
+            weaponStats.bulletInClip = weaponStats.totalBullets;
+            weaponStats.totalBullets -= weaponStats.clipSize;
+        }
+        else
+        {
+            weaponStats.bulletInClip = weaponStats.totalBullets;
+            weaponStats.totalBullets = 0;
+        }
+
     }
 }
