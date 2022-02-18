@@ -69,7 +69,6 @@ public class MovementComponent : MonoBehaviour
         aimAngle = (aimAngle > 180) ? aimAngle - 360 : aimAngle;
         float val = (aimAngle + offsetToZero) / (range);
         animator.SetFloat(aimOffsetHash, val);
-        print(val);
 
         if (angle > 180 && angle < 340)
         {
