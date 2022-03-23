@@ -7,11 +7,12 @@ TagManager:
   - Ground
   - Betty
   - Leon
+  - Zombie
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Zombie
   - Water
   - UI
   - 
