@@ -44,7 +44,7 @@ public class WeaponHolder : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(playerController.isFiring);
+        //print(playerController.isFiring);
     }
     private void OnAnimatorIK(int layerIndex)
     {

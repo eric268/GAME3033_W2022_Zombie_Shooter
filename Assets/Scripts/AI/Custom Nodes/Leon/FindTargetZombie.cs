@@ -28,7 +28,7 @@ public class FindTargetZombie : Node
             {
                 if (hit.collider.CompareTag("Zombie"))
                 {
-                    Debug.Log("ZOMBIE FOUND");
+                    //Debug.Log("ZOMBIE FOUND");
                     float tempDistance = Vector3.Distance(leonPos, zombiePos);
 
                     if (tempDistance < distance)
