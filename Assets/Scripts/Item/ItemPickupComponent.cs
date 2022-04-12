@@ -46,7 +46,13 @@ public class ItemPickupComponent : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Betty") && !other.CompareTag("Leon")) return;
+        if (!other.CompareTag("Betty") /*&& !other.CompareTag("Leon")*/) return;
+
+        InventoryComponent playerInventory = other.GetComponent<InventoryComponent>();
+        if (playerInventory)
+        {
+            playerInventory.AddItem(itemInstance, amount);
+        }
 
         Destroy(gameObject);
     }

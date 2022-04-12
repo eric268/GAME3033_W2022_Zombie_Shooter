@@ -6,7 +6,7 @@ public class GameManager : Singleton<GameManager>
 {
     public bool cursorActive = true;
 
-    void EnableCursor(bool enable)
+    public void EnableCursor(bool enable)
     {
         if (enable)
         {

@@ -10,14 +10,14 @@ public class WeaponScriptable : EquippableScriptable
 
     public override void UseItem(PlayerController playerController)
     {
-
         if (equipped)
         {
-            
+            playerController.weaponHolder.UnEquipWeapon();
         }
         else
         {
-
+            playerController.weaponHolder.EquipWeapon(this);
+            PlayerEvents.InvokeOnWeaponEquipped(itemPrefab.GetComponent<WeaponComponent>());
         }
 
         base.UseItem(playerController);
