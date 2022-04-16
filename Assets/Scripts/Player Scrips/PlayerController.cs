@@ -61,7 +61,8 @@ public class PlayerController : MonoBehaviour
     public void SetIsDead()
     {
         isDead = true;
-        OpenInventory(false) ;
+        OpenInventory(false);
+        weaponHolder.StopFiring();
     }
 
     public void StartCameraZoomOut()

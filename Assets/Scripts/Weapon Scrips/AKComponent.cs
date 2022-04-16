@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class AKComponent : WeaponComponent
 {
@@ -20,7 +21,17 @@ public class AKComponent : WeaponComponent
             {
                 hitLocation = hit.point;
                 Vector3 hitDirection = hit.point - mainCamera.transform.position;
-                Debug.DrawRay(mainCamera.transform.position, hitDirection.normalized * weaponStats.fireDistance, Color.red, 1);
+                Debug.DrawRay(mainCamera.transform.position, hitDirection.normalized * weaponStats.fireDistance, Color.red, 10);
+
+                if (hit.collider.gameObject.CompareTag("Leon"))
+                {
+                    print("Leon hit");
+                    hit.collider.gameObject.GetComponent<NavMeshAgent>().speed = 1.0f;
+                }
+                else if(hit.collider.gameObject.CompareTag("Zombie"))
+                {
+                    hit.collider.gameObject.GetComponent<HealthComponent>().TakeDamage((int)weaponStats.damage);
+                }
             }
         }
         else if (weaponStats.bulletInClip <= 0)

@@ -90,7 +90,7 @@ public class WeaponHolder : MonoBehaviour
         equippedWeapon.StartFiringWeapon();
     }
 
-    void StopFiring()
+    public void StopFiring()
     {
         animator.SetBool(isFiringHash, false);
         playerController.isFiring = false;
