@@ -12,7 +12,6 @@ public class ZombieAI : MonoBehaviour
     GameObject leonReference;
     public GameObject currentTarget;
     float attackRange;
-    public float currentHealth;
     private Node topNode;
     ZombieController zombieController;
     public Action<ZombieState> ChangeZombieState;
@@ -29,8 +28,7 @@ public class ZombieAI : MonoBehaviour
     }
     void Start()
     {
-        attackRange = 2.0f;
-        currentHealth = 100.0f;
+        attackRange = 1.0f;
         BuildBehaviourTree();
     }
 

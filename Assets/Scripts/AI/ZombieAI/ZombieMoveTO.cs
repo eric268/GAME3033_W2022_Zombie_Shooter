@@ -22,7 +22,6 @@ public class ZombieMoveTo : Node
         //This should never be called
         if (zombieAI.currentTarget == null)
         {
-            Debug.LogError("No target Set Error in zombie move to function");
             return NodeState.FAILURE;
         }
 

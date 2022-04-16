@@ -61,7 +61,7 @@ public class WeaponHolder : MonoBehaviour
 
     public void OnFire(InputValue value)
     {
-        if (!equippedWeapon)
+        if (!equippedWeapon || playerController.isDead)
             return;
         playerController.isFiring = value.isPressed;
         firingPressed = playerController.isFiring;
@@ -78,7 +78,8 @@ public class WeaponHolder : MonoBehaviour
 
     void StartFiring()
     {
-
+        if (playerController.isDead)
+            return;
         if (equippedWeapon.weaponStats.bulletInClip <= 0)
         {
             StartReloading();
@@ -91,7 +92,6 @@ public class WeaponHolder : MonoBehaviour
 
     void StopFiring()
     {
-
         animator.SetBool(isFiringHash, false);
         playerController.isFiring = false;
         equippedWeapon.StopFiringWeapon();
@@ -99,7 +99,7 @@ public class WeaponHolder : MonoBehaviour
 
     public void OnReload(InputValue value)
     {
-        if (!equippedWeapon)
+        if (!equippedWeapon || playerController.isDead)
             return;
 
         if (!playerController.isReloading)
@@ -111,6 +111,9 @@ public class WeaponHolder : MonoBehaviour
 
     public void StartReloading()
     {
+        if (playerController.isDead)
+            return;
+
         playerController.isReloading = true;
         if (playerController.isFiring)
         {
@@ -141,7 +144,7 @@ public class WeaponHolder : MonoBehaviour
 
     public void EquipWeapon(WeaponScriptable weaponScriptable)
     {
-        if (!weaponScriptable)
+        if (!weaponScriptable || playerController.isDead)
             return;
 
         spawnedWeapon = Instantiate(weaponScriptable.itemPrefab, weaponSocketLocation.transform.position, weaponSocketLocation.transform.rotation, weaponSocketLocation.transform);

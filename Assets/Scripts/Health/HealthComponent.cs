@@ -31,8 +31,9 @@ public class HealthComponent : MonoBehaviour, IDamageable
     public virtual void TakeDamage(int damage)
     {
         mCurrentHealth -= damage;
+
         if (mCurrentHealth <= 0)
-            Destroy();
+            GetComponent<Animator>().Play("Death");
     }
 
     public void HealPlayer(int health)

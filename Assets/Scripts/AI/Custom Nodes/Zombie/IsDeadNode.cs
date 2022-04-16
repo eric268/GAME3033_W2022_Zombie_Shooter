@@ -16,7 +16,7 @@ public class IsDeadNode : Node
     }
     public override NodeState Evaluate()
     {
-        if (zombieAI.currentHealth <= 0.0f)
+        if (zombieAI.GetComponent<HealthComponent>().CurrentHealth <= 0.0f)
         {
             zombieAI.ChangeZombieState(ZombieState.Dead);
             agent.isStopped = true;

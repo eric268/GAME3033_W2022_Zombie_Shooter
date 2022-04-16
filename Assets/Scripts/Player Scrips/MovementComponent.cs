@@ -54,6 +54,9 @@ public class MovementComponent : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (playerController.isDead)
+            return;
+
         followTransform.transform.rotation *= Quaternion.AngleAxis(lookInput.x * aimSensativity, Vector3.up);
         followTransform.transform.rotation *= Quaternion.AngleAxis(lookInput.y * aimSensativity, Vector3.left);
 
@@ -92,24 +95,30 @@ public class MovementComponent : MonoBehaviour
         Vector3 movementDirection = moveDirection * currentSpeed * Time.fixedDeltaTime;
 
         rigidBody.AddForce(movementDirection, ForceMode.VelocityChange);
-        
+
         //Assist in slowing player 
         rigidBody.velocity *= 0.97f;
     }
 
     public void OnMovement(InputValue value)
     {
+        if (playerController.isDead)
+            return;
         inputVector = value.Get<Vector2>();
         animator.SetFloat(movementXHash, inputVector.x);
         animator.SetFloat(movementYHash, inputVector.y);
     }
     public void OnRun(InputValue value)
     {
+        if (playerController.isDead)
+            return;
         playerController.isRunning = value.isPressed;
         animator.SetBool(isRunningHash, playerController.isRunning);
     }
     public void OnJump(InputValue value)
     {
+        if (playerController.isDead)
+            return;
         if (!playerController.isJumping)
         {
             rigidBody.AddForce((transform.up + moveDirection) * jumpForce, ForceMode.Impulse);
@@ -118,10 +127,14 @@ public class MovementComponent : MonoBehaviour
 
     public void OnAim(InputValue value)
     {
+        if (playerController.isDead)
+            return;
         playerController.isAiming = value.isPressed;
     }
     public void OnLook(InputValue value)
     {
+        if (playerController.isDead)
+            return;
         lookInput = value.Get<Vector2>();
         //If we aim up down adjust animations
     }

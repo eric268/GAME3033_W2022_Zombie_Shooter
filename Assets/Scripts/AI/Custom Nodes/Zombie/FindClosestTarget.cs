@@ -24,6 +24,12 @@ public class FindClosestTarget : Node
 
     public override NodeState Evaluate()
     {
+        if (!bettyReference || !leonReference)
+        {
+            aIReference.currentTarget = null;
+            return NodeState.FAILURE;
+        }
+
         float distanceToBetty = GetPathLength(GetPath(bettyReference));
         float distanceToLeon = GetPathLength(GetPath(leonReference));
 
