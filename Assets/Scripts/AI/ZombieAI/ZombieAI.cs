@@ -14,7 +14,7 @@ public class ZombieAI : MonoBehaviour
     float attackRange;
     private Node topNode;
     ZombieController zombieController;
-    public Action<ZombieState> ChangeZombieState;
+    public Action<ZombieState> FChangeState;
     // Start is called before the first frame update
 
     private void Awake()
@@ -23,7 +23,7 @@ public class ZombieAI : MonoBehaviour
         bettyReference = GameObject.FindGameObjectWithTag("Betty");
         leonReference = GameObject.FindGameObjectWithTag("Leon");
         zombieController = GetComponent<ZombieController>();
-        ChangeZombieState = zombieController.ChangeZombieState;
+        FChangeState = zombieController.ChangeZombieState;
         currentTarget = bettyReference;
     }
     void Start()
@@ -43,11 +43,16 @@ public class ZombieAI : MonoBehaviour
         FindClosestTarget findClosestTargetNode = new FindClosestTarget(this, bettyReference, leonReference, attackRange);
         ZombieMoveTo moveToTargetNode = new ZombieMoveTo(this, agent, attackRange);
         AttackTarget attackTargetNode = new AttackTarget(this, agent);
-        IsDeadNode isZombieDeadNode = new IsDeadNode(this, agent);
+        IsZombieDeadNode isZombieDeadNode = new IsZombieDeadNode(this, agent);
 
         Sequence findAndMoveToTargetSequence = new Sequence(new List<Node> { findClosestTargetNode, moveToTargetNode });
         Selector zombieBehaviourSequence = new Selector(new List<Node> {isZombieDeadNode, findAndMoveToTargetSequence, attackTargetNode });
 
         topNode = zombieBehaviourSequence;
+    }
+
+    private void OnDestroy()
+    {
+        FChangeState = zombieController.ChangeZombieState;
     }
 }

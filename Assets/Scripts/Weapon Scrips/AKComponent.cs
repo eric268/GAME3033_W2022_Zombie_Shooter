@@ -39,7 +39,7 @@ public class AKComponent : WeaponComponent
                         else if (mLeonLayerMask == (mLeonLayerMask | 1 << hit.collider.gameObject.layer) && !leonHit)
                         {
                             leonHit = true;
-                            //Slow or something
+                            hit.collider.gameObject.GetComponent<LeonController>().OnStateChange(LeonState.Slowed);
                             print("Leon hit");
                         }
                     }

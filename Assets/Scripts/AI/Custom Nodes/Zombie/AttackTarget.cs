@@ -20,7 +20,7 @@ public class AttackTarget : Node
             Debug.Log("No current target set to attack");
             return NodeState.FAILURE;
         }
-        zombieAI.ChangeZombieState(ZombieState.Attacking);
+        zombieAI.FChangeState(ZombieState.Attacking);
         agent.isStopped = true;
         zombieAI.transform.LookAt(zombieAI.currentTarget.transform);
         return NodeState.RUNNING;

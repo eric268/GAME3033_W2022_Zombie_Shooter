@@ -32,7 +32,7 @@ public class ZombieMoveTo : Node
 
         agent.SetDestination(zombieAI.currentTarget.transform.position);
         agent.isStopped = false;
-        zombieAI.ChangeZombieState(ZombieState.Running);
+        zombieAI.FChangeState(ZombieState.Running);
         return NodeState.RUNNING;
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using AIBehaviourTree;
+using System;
 
 public class LeonAI : MonoBehaviour
 {
@@ -10,19 +11,22 @@ public class LeonAI : MonoBehaviour
     public SphereCollider collider;
     public Node topNode;
     public LeonAISensing leonAISensing;
-
     public GameObject currentTargetZombie;
     public WayPoint[] wayPointArray;
     public WayPoint currentWaypointTarget;
     public Vector3 targetPosition;
+    public LeonController mLeonController;
+    public Action<LeonState> FChangeState;
 
     // Start is called before the first frame update
     void Start()
     {
+        mLeonController = GetComponent<LeonController>();
         agent = GetComponent<NavMeshAgent>();
         leonAISensing = GetComponentInChildren<LeonAISensing>();
         wayPointArray = FindObjectsOfType<WayPoint>();
-        currentWaypointTarget = wayPointArray[Random.Range(0, wayPointArray.Length)];
+        FChangeState = mLeonController.OnStateChange;
+        currentWaypointTarget = wayPointArray[UnityEngine.Random.Range(0, wayPointArray.Length)];
         ConstructBehaviourTree();
 
     }
@@ -38,9 +42,15 @@ public class LeonAI : MonoBehaviour
         SelectWaypoint selectNewWaypointNode = new SelectWaypoint(this, wayPointArray, currentWaypointTarget);
         MoveTo moveToWaypointNode = new MoveTo(this, agent, 5.0f);
         FindTargetZombie findTargetZombie = new FindTargetZombie(this);
+        IsLeonDeadNode isLeonDeadNode = new IsLeonDeadNode(this, agent);
 
         Sequence moveAndShootSequence = new Sequence(new List<Node> { moveToWaypointNode, findTargetZombie });
 
-        topNode = new Selector(new List<Node> { moveAndShootSequence, selectNewWaypointNode });
+        topNode = new Selector(new List<Node> { isLeonDeadNode, moveAndShootSequence, selectNewWaypointNode });
+    }
+
+    private void OnDestroy()
+    {
+        FChangeState -= mLeonController.OnStateChange;
     }
 }

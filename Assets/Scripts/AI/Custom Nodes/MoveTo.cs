@@ -24,6 +24,11 @@ public class MoveTo : Node
             return NodeState.FAILURE;
         }
 
+        if (leonAI.mLeonController.mLeonState != LeonState.Slowed)
+        {
+            leonAI.FChangeState(LeonState.Running);
+        }
+
         agent.SetDestination(leonAI.currentWaypointTarget.position);
         agent.isStopped = false;
         return NodeState.RUNNING;

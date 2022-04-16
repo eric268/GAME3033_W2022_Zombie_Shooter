@@ -4,12 +4,12 @@ using UnityEngine;
 using AIBehaviourTree;
 using UnityEngine.AI;
 
-public class IsDeadNode : Node
+public class IsZombieDeadNode : Node
 {
     ZombieAI zombieAI;
     NavMeshAgent agent;
 
-    public IsDeadNode(ZombieAI _zombieAI, NavMeshAgent _agent)
+    public IsZombieDeadNode(ZombieAI _zombieAI, NavMeshAgent _agent)
     {
         zombieAI = _zombieAI;
         agent = _agent;    
@@ -18,7 +18,7 @@ public class IsDeadNode : Node
     {
         if (zombieAI.GetComponent<HealthComponent>().CurrentHealth <= 0.0f)
         {
-            zombieAI.ChangeZombieState(ZombieState.Dead);
+            zombieAI.FChangeState(ZombieState.Dead);
             agent.isStopped = true;
             return NodeState.SUCCESS;
         }
