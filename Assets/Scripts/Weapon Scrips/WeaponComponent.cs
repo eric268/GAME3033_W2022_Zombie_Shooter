@@ -85,9 +85,7 @@ public class WeaponComponent : MonoBehaviour
     }   
     protected virtual void FireWeapon()
     {
-        print("Firing weapon");
         weaponStats.bulletInClip--;
-        print(weaponStats.bulletInClip);
     }
 
     public virtual void StartReloading()

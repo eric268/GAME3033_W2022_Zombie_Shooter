@@ -22,24 +22,27 @@ public class FindTargetZombie : Node
         tempTarget = null;
         foreach (Collider coll in leonAISensing.colliderArray[(int)AISensingType.Close_By].zombieSensingCollider)
         {
-            Vector3 zombiePos = coll.gameObject.transform.position;
-            RaycastHit hit;
-            if (Physics.Linecast(leonPos, zombiePos, out hit))
+            //if (coll.gameObject != null)
             {
-                if (hit.collider.CompareTag("Zombie"))
+                Vector3 zombiePos = coll.gameObject.transform.position;
+                RaycastHit hit;
+                if (Physics.Linecast(leonPos, zombiePos, out hit))
                 {
-                    //Debug.Log("ZOMBIE FOUND");
-                    float tempDistance = Vector3.Distance(leonPos, zombiePos);
-
-                    if (tempDistance < distance)
+                    if (hit.collider.CompareTag("Zombie"))
                     {
-                        distance = tempDistance;
-                        tempTarget = coll.gameObject;
+                        //Debug.Log("ZOMBIE FOUND");
+                        float tempDistance = Vector3.Distance(leonPos, zombiePos);
 
-                        //leonAI.transform.LookAt(coll.transform);
+                        if (tempDistance < distance)
+                        {
+                            distance = tempDistance;
+                            tempTarget = coll.gameObject;
 
-                        //Eventually switch this to setting a firing state for Leon
-                        Debug.DrawLine(leonPos, zombiePos, Color.red, 0.3f);
+                            //leonAI.transform.LookAt(coll.transform);
+
+                            //Eventually switch this to setting a firing state for Leon
+                            Debug.DrawLine(leonPos, zombiePos, Color.red, 0.3f);
+                        }
                     }
                 }
             }

@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class AKComponent : WeaponComponent
 {
+    public LayerMask mZombieLayerMask;
+    public LayerMask mLeonLayerMask;
     protected override void FireWeapon()
     { 
         Vector3 hitLocation;
@@ -14,23 +16,33 @@ public class AKComponent : WeaponComponent
         if(weaponStats.bulletInClip > 0 && !isReloading)
         {
             base.FireWeapon();
+            bool leonHit = false;
 
+            //This allows for bullet penetration and not damaging same zombie twice
+            HashSet<Collider> mZombiesHit = new HashSet<Collider>();
             Ray screenRay = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2.0f, Screen.height / 2.0f, 0.0f));
 
-            if (Physics.Raycast(screenRay, out RaycastHit hit, weaponStats.fireDistance, weaponStats.weaponHitLayer))
-            {
-                hitLocation = hit.point;
-                Vector3 hitDirection = hit.point - mainCamera.transform.position;
-                Debug.DrawRay(mainCamera.transform.position, hitDirection.normalized * weaponStats.fireDistance, Color.red, 10);
+            RaycastHit[] hitArray = Physics.RaycastAll(screenRay, weaponStats.fireDistance, weaponStats.weaponHitLayer);
 
-                if (hit.collider.gameObject.CompareTag("Leon"))
+            if (hitArray.Length > 0)
+            {
+                foreach (RaycastHit hit in hitArray)
                 {
-                    print("Leon hit");
-                    hit.collider.gameObject.GetComponent<NavMeshAgent>().speed = 1.0f;
-                }
-                else if(hit.collider.gameObject.CompareTag("Zombie"))
-                {
-                    hit.collider.gameObject.GetComponent<HealthComponent>().TakeDamage((int)weaponStats.damage);
+                    if (!hit.collider.isTrigger)
+                    {
+                        if (mZombieLayerMask == (mZombieLayerMask | 1 << hit.collider.gameObject.layer) && !mZombiesHit.Contains(hit.collider))
+                        {
+                            mZombiesHit.Add(hit.collider);
+                            hit.collider.gameObject.GetComponent<HealthComponent>().TakeDamage((int)weaponStats.damage / mZombiesHit.Count); //Can add scalar for different weapons to have more or less bullet penetration
+                            print("Zombie hit");
+                        }
+                        else if (mLeonLayerMask == (mLeonLayerMask | 1 << hit.collider.gameObject.layer) && !leonHit)
+                        {
+                            leonHit = true;
+                            //Slow or something
+                            print("Leon hit");
+                        }
+                    }
                 }
             }
         }
