@@ -11,7 +11,7 @@ public class ZombieAI : MonoBehaviour
     GameObject bettyReference;
     GameObject leonReference;
     public GameObject currentTarget;
-    float attackRange;
+    public float attackRange;
     private Node topNode;
     ZombieController zombieController;
     public Action<ZombieState> FChangeState;
@@ -28,15 +28,15 @@ public class ZombieAI : MonoBehaviour
     }
     void Start()
     {
-        attackRange = 1.0f;
+        attackRange = 1.2f;
         BuildBehaviourTree();
 
         //InvokeRepeating(nameof(RunBehaviourTree), 0.0f, 0.25f);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        //RunBehaviourTree();
+        RunBehaviourTree();
     }
 
     void RunBehaviourTree()

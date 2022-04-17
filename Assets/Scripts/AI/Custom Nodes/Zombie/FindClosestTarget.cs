@@ -24,7 +24,7 @@ public class FindClosestTarget : Node
 
     public override NodeState Evaluate()
     {
-        if (!bettyReference || !leonReference)
+        if (!bettyReference && !leonReference)
         {
             aIReference.currentTarget = null;
             return NodeState.FAILURE;

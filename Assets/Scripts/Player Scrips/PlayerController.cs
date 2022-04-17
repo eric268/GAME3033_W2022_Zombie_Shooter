@@ -67,7 +67,10 @@ public class PlayerController : MonoBehaviour
 
     public void StartCameraZoomOut()
     {
-        StartCoroutine("CameraZoomOut");
+        if (mMovementComponent.followTransform)
+        {
+            StartCoroutine("CameraZoomOut");
+        }
     }
 
     IEnumerator CameraZoomOut()

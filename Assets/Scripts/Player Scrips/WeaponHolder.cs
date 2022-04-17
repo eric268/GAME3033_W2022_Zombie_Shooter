@@ -51,10 +51,6 @@ public class WeaponHolder : MonoBehaviour
         //PlayerEvents.InvokeOnWeaponEquipped(equippedWeapon);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
     private void OnAnimatorIK(int layerIndex)
     {
         if (equippedWeapon)
@@ -115,6 +111,7 @@ public class WeaponHolder : MonoBehaviour
     {
         animator.SetBool(isFiringHash, false);
         playerController.isFiring = false;
+        if (equippedWeapon)
         equippedWeapon.StopFiringWeapon();
     }
 

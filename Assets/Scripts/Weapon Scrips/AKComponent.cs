@@ -7,6 +7,7 @@ public class AKComponent : WeaponComponent
 {
     public LayerMask mZombieLayerMask;
     public LayerMask mLeonLayerMask;
+    public LayerMask mBettyLayerMask;
     protected override void FireWeapon()
     { 
         Vector3 hitLocation;
@@ -17,6 +18,7 @@ public class AKComponent : WeaponComponent
         {
             base.FireWeapon();
             bool leonHit = false;
+            bool bettyHit = false;
 
             //This allows for bullet penetration and not damaging same zombie twice
             HashSet<Collider> mZombiesHit = new HashSet<Collider>();
@@ -28,10 +30,6 @@ public class AKComponent : WeaponComponent
             {
                 foreach (RaycastHit hit in hitArray)
                 {
-                    if (hit.collider.gameObject.name == "Zombie")
-                    {
-                        print("Found Zombvie");
-                    }
                     if (!hit.collider.isTrigger)
                     {
                         if (mZombieLayerMask == (mZombieLayerMask | 1 << hit.collider.gameObject.layer) && !mZombiesHit.Contains(hit.collider))
@@ -40,11 +38,17 @@ public class AKComponent : WeaponComponent
                             hit.collider.gameObject.GetComponent<HealthComponent>().TakeDamage((int)weaponStats.damage / mZombiesHit.Count); //Can add scalar for different weapons to have more or less bullet penetration
                             print("Zombie hit");
                         }
-                        else if (mLeonLayerMask == (mLeonLayerMask | 1 << hit.collider.gameObject.layer) && !leonHit)
+                        else if (mLeonLayerMask == (mLeonLayerMask | 1 << hit.collider.gameObject.layer) && !leonHit /*&& !transform.parent.CompareTag("Leon"*/)
                         {
                             leonHit = true;
                             hit.collider.gameObject.GetComponent<LeonController>().OnStateChange(LeonState.Slowed);
                             print("Leon hit");
+                        }
+                        else if (mBettyLayerMask == (mBettyLayerMask | 1 << hit.collider.gameObject.layer) && !bettyHit)
+                        {
+                            print("Betty hit");
+                            //Slow betty
+                            //hit.collider.gameObject.
                         }
                     }
                 }

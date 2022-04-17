@@ -36,17 +36,18 @@ public class LeonAI : MonoBehaviour
         ConstructBehaviourTree();
 
 
-        InvokeRepeating(nameof(RunBehaviourTree), 0.0f, 0.25f);
+        //InvokeRepeating(nameof(RunBehaviourTree), 0.0f, 0.25f);
 
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if (mLeonController.mIsDead)
-        {
-            CancelInvoke();
-        }
+        //if (mLeonController.mIsDead)
+        //{
+        //    CancelInvoke();
+        //}
+        topNode.Evaluate();
     }
 
     void RunBehaviourTree()
@@ -63,13 +64,15 @@ public class LeonAI : MonoBehaviour
 
         Sequence moveAndShootSequence = new Sequence(new List<Node> { moveToWaypointNode, findTargetZombie });
 
-        //topNode = new Selector(new List<Node> { isLeonDeadNode, moveAndShootSequence, selectNewWaypointNode });
 
 
         //Testing for weapon attachment
         FindConsumableNode findWeaponNode = new FindConsumableNode(this, agent, mWeaponPickupArray);
         FindConsumableNode findConsumableNode = new FindConsumableNode(this, agent, mConsumableArray);
-        topNode = new Selector( new List<Node> { findWeaponNode } );
+
+
+
+        topNode = new Selector(new List<Node> { isLeonDeadNode, moveAndShootSequence, selectNewWaypointNode });
     }
 
     private void OnDestroy()

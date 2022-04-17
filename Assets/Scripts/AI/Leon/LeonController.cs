@@ -52,7 +52,7 @@ public class LeonController : MonoBehaviour
 
     private void Update()
     {
-        CheckIfCanFire();
+        //CheckIfCanFire();
     }
 
     // Start is called before the first frame update

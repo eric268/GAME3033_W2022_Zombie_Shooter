@@ -32,7 +32,6 @@ public class ZombieController : MonoBehaviour, IDamageable
     {
         mZombieAttack = GetComponentInChildren<ZombieAttack>();
         animator = GetComponent<Animator>();
-        mZombieCurrentHealth = mZombieStartingHealth;
     }
 
     // Update is called once per frame
@@ -83,9 +82,9 @@ public class ZombieController : MonoBehaviour, IDamageable
 
     public void DisableCapsuleCollider()
     {
-        //GetComponent<CapsuleCollider>().enabled = false;
-        //GetComponent<NavMeshAgent>().enabled = false;
-        //StartCoroutine("DecreaseZombieHeight");
+        GetComponent<CapsuleCollider>().enabled = false;
+       // GetComponent<NavMeshAgent>().enabled = false;
+        GetComponent<Rigidbody>().useGravity = false;
     }
     public void StartZombieRemovalProcess()
     {
