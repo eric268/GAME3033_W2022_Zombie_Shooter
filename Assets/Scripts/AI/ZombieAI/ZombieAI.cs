@@ -15,6 +15,7 @@ public class ZombieAI : MonoBehaviour
     private Node topNode;
     ZombieController zombieController;
     public Action<ZombieState> FChangeState;
+
     // Start is called before the first frame update
 
     private void Awake()
@@ -36,7 +37,7 @@ public class ZombieAI : MonoBehaviour
 
     private void FixedUpdate()
     {
-        RunBehaviourTree();
+        //RunBehaviourTree();
     }
 
     void RunBehaviourTree()

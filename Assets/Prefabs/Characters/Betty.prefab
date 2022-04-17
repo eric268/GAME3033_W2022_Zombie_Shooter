@@ -808,7 +808,7 @@ GameObject:
   - component: {fileID: 6552668161529108856}
   m_Layer: 8
   m_Name: RightHand
-  m_TagString: Untagged
+  m_TagString: Betty
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1032,6 +1032,8 @@ MonoBehaviour:
   jumpForce: 0
   followTransform: {fileID: 4342361934173725445}
   aimSensativity: 0.1
+  mIsSlowed: 0
+  mSlowTimer: 0.2
 --- !u!114 &4342361935495816078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1426,7 +1428,7 @@ GameObject:
   - component: {fileID: 4342361934885674689}
   m_Layer: 8
   m_Name: AKWeaponSocket
-  m_TagString: Untagged
+  m_TagString: Betty
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

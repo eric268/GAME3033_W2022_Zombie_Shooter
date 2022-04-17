@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3a7916501446a044b96c849d28a8fb4, type: 3}
+  m_Name: Pistol
+  m_EditorClassIdentifier: 
+  name: Pistol
+  itemCategory: 1
+  itemPrefab: {fileID: 157568, guid: 8a96a3013cf891b4bbc4bebfab850b5b, type: 3}
+  stackable: 0
+  maxSize: 1
+  amountValue: 1
+  weaponStats:
+    weaponType: 1
+    firingPattern: 0
+    weaponName: Pistol
+    damage: 10
+    bulletInClip: 12
+    clipSize: 12
+    fireStartDelay: 0
+    fireRate: 1
+    fireDistance: 400
+    repeating: 0
+    weaponHitLayer:
+      serializedVersion: 2
+      m_Bits: 2147483647
+    totalBullets: 100

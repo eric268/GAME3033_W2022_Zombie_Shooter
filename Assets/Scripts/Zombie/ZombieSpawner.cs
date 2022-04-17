@@ -5,25 +5,25 @@ using UnityEngine;
 public class ZombieSpawner : MonoBehaviour
 {
     public GameObject mZombiePrefab;
-    public float mSpawnRate;
-    public int mSpawnAmount;
-    public int mSpawnCounter;
-
-    void StartSpawningZombies()
+    public LevelManager mLevelManager;
+    public void Start()
     {
-        mSpawnCounter = mSpawnAmount;
-        InvokeRepeating(nameof(SpawnZombie), 0, mSpawnRate);
+        mLevelManager = FindObjectOfType<LevelManager>();
     }
 
-    void SpawnZombie()
+    public void SpawnZombie()
     {
-        mSpawnCounter--;
-        GameManager.mNumberActiveZombies++;
         GameObject newZombie = Instantiate(mZombiePrefab, this.transform);
 
-        if (mSpawnCounter <= 0)
+        //Zombie health increases with level
+        newZombie.GetComponent<HealthComponent>().mStartingHealth += 10 * mLevelManager.mCurrentLevel;
+        newZombie.GetComponent<HealthComponent>().mStartingHealth = newZombie.GetComponent<HealthComponent>().mCurrentHealth;
+        int childCount = newZombie.transform.childCount;
+
+        if (childCount > 1)
         {
-            CancelInvoke();
+            int ranZombie = Random.Range(1, childCount);
+            newZombie.transform.GetChild(ranZombie).gameObject.SetActive(true);
         }
     }
 }

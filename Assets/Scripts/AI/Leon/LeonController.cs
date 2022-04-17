@@ -29,6 +29,7 @@ public class LeonController : MonoBehaviour
     WeaponHolder mWeaponHolder;
     PlayerController mPlayerController;
     public GameObject mWeaponSocket;
+    public Transform mFiringLocation;
 
     private void Awake()
     {
@@ -47,12 +48,12 @@ public class LeonController : MonoBehaviour
             animator.SetFloat(verticalAimHash, 0.5f);
         }
 
-        InvokeRepeating(nameof(CheckIfCanFire), 0.0f, 0.3f);
+        //InvokeRepeating(nameof(CheckIfCanFire), 0.0f, 0.3f);
     }
 
     private void Update()
     {
-        //CheckIfCanFire();
+        CheckIfCanFire();
     }
 
     // Start is called before the first frame update
@@ -69,6 +70,7 @@ public class LeonController : MonoBehaviour
             case LeonState.Slowed:
                 CancelInvoke();
                 Invoke(nameof(OnSlowEnded), mSlowTimer);
+                InvokeRepeating(nameof(CheckIfCanFire), 0.0f, 0.3f);
                 mLeonState = LeonState.Slowed;
                 animator.SetFloat(movementXHash, 1.0f);
                 animator.SetBool(isRunningHash, false);

@@ -14,7 +14,7 @@ public class ItemPickupComponent : MonoBehaviour
 
     [SerializeField] MeshRenderer propMeshRenderer;
     [SerializeField] MeshFilter propMeshFiler;
-
+    WeaponPanelUI weaponPanelUI;
     ItemScript itemInstance;
     public bool mIsAvailable = true;
     public int mRespawnTimer = 10;
@@ -22,6 +22,7 @@ public class ItemPickupComponent : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        weaponPanelUI = FindObjectOfType<WeaponPanelUI>();
         InstatiateItem();
     }
 
@@ -53,7 +54,15 @@ public class ItemPickupComponent : MonoBehaviour
         if (other.CompareTag("Betty"))
         {
             InventoryComponent playerInventory = other.GetComponent<InventoryComponent>();
-            if (playerInventory)
+            if (other.gameObject.GetComponent<WeaponHolder>().equippedWeapon != null && itemInstance.name == other.gameObject.GetComponent<WeaponHolder>().equippedWeapon.weaponStats.weaponName)
+            {
+                itemInstance.UseItem(other.gameObject.GetComponent<PlayerController>());
+                if (weaponPanelUI)
+                {
+                    weaponPanelUI.weaponComponent = other.gameObject.GetComponent<WeaponHolder>().equippedWeapon;
+                }
+            }
+            else if (playerInventory)
             {
                 playerInventory.AddItem(itemInstance, amount);
             }

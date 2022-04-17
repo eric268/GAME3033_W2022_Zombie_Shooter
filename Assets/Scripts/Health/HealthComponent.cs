@@ -5,9 +5,9 @@ using UnityEngine;
 public class HealthComponent : MonoBehaviour, IDamageable
 {
     [SerializeField]
-    private int mStartingHealth;
+    public int mStartingHealth;
     [SerializeField]
-    private int mCurrentHealth;
+    public int mCurrentHealth ;
 
     public int CurrentHealth => mCurrentHealth;
     public int StartingHealth => mStartingHealth;

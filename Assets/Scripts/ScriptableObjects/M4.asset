@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3a7916501446a044b96c849d28a8fb4, type: 3}
+  m_Name: M4
+  m_EditorClassIdentifier: 
+  name: M4
+  itemCategory: 1
+  itemPrefab: {fileID: 103036, guid: c656de207260bf54883c10f990df79db, type: 3}
+  stackable: 0
+  maxSize: 1
+  amountValue: 1
+  weaponStats:
+    weaponType: 2
+    firingPattern: 1
+    weaponName: M4
+    damage: 40
+    bulletInClip: 20
+    clipSize: 20
+    fireStartDelay: 0
+    fireRate: 0.13
+    fireDistance: 500
+    repeating: 1
+    weaponHitLayer:
+      serializedVersion: 2
+      m_Bits: 2147483647
+    totalBullets: 300

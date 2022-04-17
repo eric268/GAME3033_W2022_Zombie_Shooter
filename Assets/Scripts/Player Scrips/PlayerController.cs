@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public bool isRunning;
     public bool isAiming;
     public bool isDead;
+    public bool canFire;
 
     public bool inInventory;
     public InventoryComponent inventory;
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour
         weaponHolder = GetComponent<WeaponHolder>();
         healthComponent = GetComponent<HealthComponent>();
         mMovementComponent = GetComponent<MovementComponent>();
+        canFire = true;
     }
     public void OnInventory(InputValue value)
     {

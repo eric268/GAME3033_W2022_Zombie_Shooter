@@ -21,6 +21,9 @@ public class LeonAI : MonoBehaviour
     public GameObject[] mWeaponPickupArray;
     public ItemPickupComponent[] testComp;
 
+    HealthComponent mHealthComponent;
+    WeaponComponent mWeaponComonent;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +35,8 @@ public class LeonAI : MonoBehaviour
         currentWaypointTarget = wayPointArray[UnityEngine.Random.Range(0, wayPointArray.Length)];
         mConsumableArray = GameObject.FindGameObjectsWithTag("Consumable");
         mWeaponPickupArray = GameObject.FindGameObjectsWithTag("Weapon");
+        mHealthComponent = GetComponent<HealthComponent>();
+        mWeaponComonent = GetComponent<WeaponComponent>();
 
         ConstructBehaviourTree();
 
@@ -43,11 +48,10 @@ public class LeonAI : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        //if (mLeonController.mIsDead)
-        //{
-        //    CancelInvoke();
-        //}
-        topNode.Evaluate();
+        if (mLeonController.mIsDead)
+        {
+            CancelInvoke();
+        }
     }
 
     void RunBehaviourTree()
@@ -57,22 +61,20 @@ public class LeonAI : MonoBehaviour
 
     void ConstructBehaviourTree()
     {
-        SelectWaypoint selectNewWaypointNode = new SelectWaypoint(this, wayPointArray, currentWaypointTarget,100.0f, EQSNodeType.Filter_And_Score);
+        SelectWaypoint selectNewWaypointNode = new SelectWaypoint(this, wayPointArray, currentWaypointTarget, 100.0f, EQSNodeType.Filter_And_Score);
         MoveTo moveToWaypointNode = new MoveTo(this, agent, 25.0f);
         FindTargetZombie findTargetZombie = new FindTargetZombie(this);
         IsLeonDeadNode isLeonDeadNode = new IsLeonDeadNode(this, agent);
 
-        Sequence moveAndShootSequence = new Sequence(new List<Node> { moveToWaypointNode, findTargetZombie });
-
-
-
-        //Testing for weapon attachment
         FindConsumableNode findWeaponNode = new FindConsumableNode(this, agent, mWeaponPickupArray);
         FindConsumableNode findConsumableNode = new FindConsumableNode(this, agent, mConsumableArray);
 
+        Sequence moveAndShootSequence = new Sequence(new List<Node> { moveToWaypointNode, findTargetZombie });
 
 
-        topNode = new Selector(new List<Node> { isLeonDeadNode, moveAndShootSequence, selectNewWaypointNode });
+        Selector findConsumableIfNeeded = new Selector(new List<Node> { findWeaponNode, findConsumableNode });
+
+        topNode = new Selector(new List<Node> { isLeonDeadNode, findConsumableIfNeeded,  moveAndShootSequence, selectNewWaypointNode });
     }
 
     private void OnDestroy()

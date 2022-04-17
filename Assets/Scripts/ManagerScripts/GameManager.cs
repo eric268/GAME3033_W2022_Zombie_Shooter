@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    public static int mNumberActiveZombies = 0;
     public bool cursorActive = true;
 
     public void EnableCursor(bool enable)

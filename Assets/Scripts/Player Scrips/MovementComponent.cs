@@ -25,6 +25,10 @@ public class MovementComponent : MonoBehaviour
     Vector2 lookInput = Vector2.zero;
     public float aimSensativity = 1;
 
+    public bool mIsSlowed = false;
+    public float mSlowTimer = 0.2f;
+    public float mSlowAmount = 0.625f;
+
     //Hash values for animator
     public readonly int movementXHash = Animator.StringToHash("MovementX");
     public readonly int movementYHash = Animator.StringToHash("MovementY");
@@ -93,13 +97,37 @@ public class MovementComponent : MonoBehaviour
         moveDirection = transform.forward * inputVector.y + transform.right * inputVector.x;
         float currentSpeed = playerController.isRunning ? runSpeed : walkSpeed;
 
-        Vector3 movementDirection = moveDirection * currentSpeed * Time.fixedDeltaTime;
+        Vector3 movementDirection = Vector3.zero;
+        if (mIsSlowed)
+        {
+            if (movementDirection.magnitude > 0)
+            {
+                print("moving while slowed");
+            }
+            movementDirection = moveDirection * currentSpeed * mSlowAmount * Time.fixedDeltaTime;
+        }
+        else
+        {
+            movementDirection = moveDirection * currentSpeed * Time.fixedDeltaTime;
+        }
 
         rigidBody.AddForce(movementDirection, ForceMode.VelocityChange);
 
         //Assist in slowing player 
         rigidBody.velocity *= 0.97f;
     }
+
+    public void BeingSlowedEffect()
+    {
+        CancelInvoke();
+        mIsSlowed = true;
+        Invoke(nameof(EndSlowEffect), mSlowTimer);
+    }
+
+    void EndSlowEffect()
+    {
+        mIsSlowed = false;
+    }    
 
     public void OnMovement(InputValue value)
     {

@@ -58,7 +58,7 @@ public class SelectWaypoint : EQSNode<WayPoint>
         //Score each way point based on criteria 
         foreach (EQSContainer<WayPoint> wayPoint in wayPointList)
         {
-            float mActiveZombies = (GameManager.mNumberActiveZombies == 0.0f) ? 1.0f : GameManager.mNumberActiveZombies;
+            float mActiveZombies = (LevelManager.mActiveZombiesInLevel == 0.0f) ? 1.0f : LevelManager.mActiveZombiesInLevel;
             //Adds score for way points having less zombies 
             wayPoint.Score = ((1.0f - wayPoint.Key.mNumZombiesCloseBy / mActiveZombies) * scoreForLessZombiesMultiplier);
 

@@ -68,6 +68,12 @@ public class WeaponHolder : MonoBehaviour
         if (!equippedWeapon || playerController.isDead)
             return;
 
+        if (!value.isPressed)
+        {
+            print("Released");
+            playerController.canFire = true;
+        }
+
         playerController.isFiring = value.isPressed;
         firingPressed = playerController.isFiring;
         if (!playerController.isReloading && firingPressed)
@@ -95,8 +101,9 @@ public class WeaponHolder : MonoBehaviour
 
     void StartFiring()
     {
-        if (playerController.isDead)
+        if (playerController.isDead || !playerController.canFire)
             return;
+
         if (equippedWeapon.weaponStats.bulletInClip <= 0)
         {
             StartReloading();
@@ -105,12 +112,19 @@ public class WeaponHolder : MonoBehaviour
         animator.SetBool(isFiringHash, playerController.isFiring);
         playerController.isFiring = true;
         equippedWeapon.StartFiringWeapon();
+
+        if (equippedWeapon.weaponStats.firingPattern == WeaponFiringPattern.SemiAuto)
+        {
+            Invoke(nameof(StopFiring), 0.05f);
+            playerController.canFire = false;
+        }
     }
 
     public void StopFiring()
     {
         animator.SetBool(isFiringHash, false);
         playerController.isFiring = false;
+
         if (equippedWeapon)
         equippedWeapon.StopFiringWeapon();
     }

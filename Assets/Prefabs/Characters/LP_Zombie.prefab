@@ -3019,7 +3019,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4264353550843116
 Transform:
   m_ObjectHideFlags: 0
@@ -3437,8 +3437,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mAttackStarted: 0
   mAttackDamage: 20
-  mZombieStartingHealth: 50
-  mZombieCurrentHealth: 50
 --- !u!114 &7965244820685351641
 MonoBehaviour:
   m_ObjectHideFlags: 0
