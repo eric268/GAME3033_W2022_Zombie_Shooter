@@ -12,11 +12,11 @@ public class SelectWaypoint : EQSNode<WayPoint>
 
     float minRange;
     float maxRange;
-    float idealAngle;
+    float mIdealAngle;
     float scoreForLessZombiesMultiplier;
     float scoreForRightAngleMultiplier;
 
-    public SelectWaypoint(LeonAI _leonAI, WayPoint[] _waypointArray, WayPoint _currentWaypoint, EQSNodeType _EQSType)
+    public SelectWaypoint(LeonAI _leonAI, WayPoint[] _waypointArray, WayPoint _currentWaypoint, float idealAngle, EQSNodeType _EQSType)
     {
         leonAI = _leonAI;
         waypointArray = _waypointArray;
@@ -26,7 +26,7 @@ public class SelectWaypoint : EQSNode<WayPoint>
         maxRange = 100;
         scoreForLessZombiesMultiplier = 1;
         scoreForRightAngleMultiplier = 2;
-        idealAngle = 100.0f;
+        mIdealAngle = idealAngle;
     }
 
     public override NodeState Evaluate()
@@ -65,7 +65,7 @@ public class SelectWaypoint : EQSNode<WayPoint>
             //Adds score for way points being to the right or left of Leon's current direction
             Vector3 targetDir = wayPoint.Key.transform.position - leonAI.transform.position;
             float angle = Vector3.Angle(targetDir, leonAI.transform.forward);
-            float score = Mathf.Abs((angle - idealAngle)) / idealAngle * scoreForRightAngleMultiplier;
+            float score = Mathf.Abs((angle - mIdealAngle)) / mIdealAngle * scoreForRightAngleMultiplier;
             wayPoint.Score += score;
         }
 

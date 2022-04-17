@@ -1074,6 +1074,7 @@ MonoBehaviour:
   equippedWeapon: {fileID: 0}
   weaponPanelUI: {fileID: 0}
   weaponSocketLocation: {fileID: 4342361934885674690}
+  mPlayerType: 0
   gripSocketLocation: {fileID: 0}
 --- !u!114 &4342361935495816082
 MonoBehaviour:

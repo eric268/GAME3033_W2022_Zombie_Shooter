@@ -26,11 +26,16 @@ public class LeonController : MonoBehaviour
     public float mRunSpeed = 4.0f;
     public float mSlowTimer = 0.2f;
     public bool mIsDead;
+    WeaponHolder mWeaponHolder;
+    PlayerController mPlayerController;
+    public GameObject mWeaponSocket;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
         mNavMeshAgent = GetComponent<NavMeshAgent>();
+        mWeaponHolder = GetComponent<WeaponHolder>();
+        mPlayerController = GetComponent<PlayerController>();
     }
 
     void Start()
@@ -41,6 +46,13 @@ public class LeonController : MonoBehaviour
             OnStateChange(mLeonState);
             animator.SetFloat(verticalAimHash, 0.5f);
         }
+
+        InvokeRepeating(nameof(CheckIfCanFire), 0.0f, 0.3f);
+    }
+
+    private void Update()
+    {
+        CheckIfCanFire();
     }
 
     // Start is called before the first frame update
@@ -78,8 +90,21 @@ public class LeonController : MonoBehaviour
         }
     }
 
+    void CheckIfCanFire()
+    {
+        if (mWeaponHolder.equippedWeapon != null)
+        {
+            mWeaponHolder.LeonStartFiring();
+        }
+    }
+
     public void OnSlowEnded()
     {
         OnStateChange(LeonState.Running);
+    }
+
+    public void RemoveCurrentWeapon()
+    {
+
     }
 }

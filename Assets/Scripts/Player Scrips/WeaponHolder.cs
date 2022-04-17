@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum PlayerType
+{
+    None = -1,
+    Betty,
+    Leon,
+    Num_Player_Types
+}
+
 public class WeaponHolder : MonoBehaviour
 {
     [Header("WeaponToSpawn"), SerializeField]
@@ -19,7 +27,7 @@ public class WeaponHolder : MonoBehaviour
     public WeaponPanelUI weaponPanelUI;
     [SerializeField]
     GameObject weaponSocketLocation;
-
+    public PlayerType mPlayerType;
     bool firingPressed = false;
     bool wasFiring;
     [SerializeField]
@@ -46,7 +54,6 @@ public class WeaponHolder : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //print(playerController.isFiring);
     }
     private void OnAnimatorIK(int layerIndex)
     {
@@ -76,6 +83,18 @@ public class WeaponHolder : MonoBehaviour
             StopFiring();
         }
         //equippedWeapon.StartFiringWeapon();
+    }
+
+    public void LeonStartFiring()
+    {
+        if (!playerController.isReloading)
+        {
+            StartFiring();
+        }
+        else
+        {
+            StopFiring();
+        }
     }
 
     void StartFiring()
@@ -161,11 +180,18 @@ public class WeaponHolder : MonoBehaviour
         equippedWeapon.Initalize(this, weaponScriptable);
         PlayerEvents.InvokeOnWeaponEquipped(equippedWeapon);
         gripSocketLocation = equippedWeapon.gripLocation;
-        weaponPanelUI.weaponComponent = equippedWeapon;
+
+        if (weaponPanelUI)
+        {
+            weaponPanelUI.weaponComponent = equippedWeapon;
+        }
     }
 
     public void UnEquipWeapon()
     {
-
+        if (weaponSocketLocation.transform.childCount > 0)
+        {
+            Destroy(weaponSocketLocation.transform.GetChild(0).gameObject);
+        }
     }
 }

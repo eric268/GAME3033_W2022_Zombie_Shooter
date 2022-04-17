@@ -16,6 +16,8 @@ public class ItemPickupComponent : MonoBehaviour
     [SerializeField] MeshFilter propMeshFiler;
 
     ItemScript itemInstance;
+    public bool mIsAvailable = true;
+    public int mRespawnTimer = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -46,15 +48,38 @@ public class ItemPickupComponent : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Betty") /*&& !other.CompareTag("Leon")*/) return;
+        if (!other.CompareTag("Betty") && !other.CompareTag("Leon")) return;
 
-        InventoryComponent playerInventory = other.GetComponent<InventoryComponent>();
-        if (playerInventory)
+        if (other.CompareTag("Betty"))
         {
-            playerInventory.AddItem(itemInstance, amount);
+            InventoryComponent playerInventory = other.GetComponent<InventoryComponent>();
+            if (playerInventory)
+            {
+                playerInventory.AddItem(itemInstance, amount);
+            }
+        }
+        else
+        {
+            //other.GetComponent<LeonController>().RemoveCurrentWeapon();
+            itemInstance.UseItem(other.gameObject.GetComponent<PlayerController>());
         }
 
-        Destroy(gameObject);
+        DeactivateComponent();
+        Invoke(nameof(RespawnItem), mRespawnTimer);
+    }
+
+    private void DeactivateComponent()
+    {
+        transform.GetChild(0).gameObject.SetActive(false);
+        GetComponent<BoxCollider>().enabled = false;
+        mIsAvailable = false;
+    }
+
+    private void RespawnItem()
+    {
+        transform.GetChild(0).gameObject.SetActive(true);
+        GetComponent<BoxCollider>().enabled = true;
+        mIsAvailable = true;
     }
 
 }

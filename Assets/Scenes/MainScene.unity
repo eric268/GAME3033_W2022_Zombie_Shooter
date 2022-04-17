@@ -266,6 +266,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5006271146037663822, guid: be92cc02203743c4394c6bbb91258391, type: 3}
+      propertyPath: mCurrentHealth
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 5165670747505203062, guid: be92cc02203743c4394c6bbb91258391, type: 3}
       propertyPath: m_Name
       value: Leon
@@ -284,7 +288,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5547298402382695884, guid: be92cc02203743c4394c6bbb91258391, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.370947
+      value: 40.09
       objectReference: {fileID: 0}
     - target: {fileID: 5547298402382695884, guid: be92cc02203743c4394c6bbb91258391, type: 3}
       propertyPath: m_LocalPosition.y
@@ -292,7 +296,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5547298402382695884, guid: be92cc02203743c4394c6bbb91258391, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.151645
+      value: 47.45
       objectReference: {fileID: 0}
     - target: {fileID: 5547298402382695884, guid: be92cc02203743c4394c6bbb91258391, type: 3}
       propertyPath: m_LocalRotation.w
@@ -666,7 +670,7 @@ GameObject:
   - component: {fileID: 384799920}
   m_Layer: 0
   m_Name: WeaponPickup
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -687,6 +691,8 @@ MonoBehaviour:
   amount: 1
   propMeshRenderer: {fileID: 1252762794}
   propMeshFiler: {fileID: 1252762792}
+  mIsAvailable: 1
+  mRespawnTimer: 10
 --- !u!65 &384799921
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2186,7 +2192,7 @@ GameObject:
   - component: {fileID: 1009486342}
   m_Layer: 0
   m_Name: ConsumablePickup
-  m_TagString: Untagged
+  m_TagString: Consumable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2207,6 +2213,8 @@ MonoBehaviour:
   amount: 2
   propMeshRenderer: {fileID: 557586337}
   propMeshFiler: {fileID: 557586338}
+  mIsAvailable: 1
+  mRespawnTimer: 10
 --- !u!65 &1009486343
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2793,7 +2801,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh23636
+  m_Name: pb_Mesh23646
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

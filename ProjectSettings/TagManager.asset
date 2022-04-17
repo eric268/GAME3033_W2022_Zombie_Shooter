@@ -8,6 +8,8 @@ TagManager:
   - Betty
   - Leon
   - Zombie
+  - Weapon
+  - Consumable
   layers:
   - Default
   - TransparentFX
