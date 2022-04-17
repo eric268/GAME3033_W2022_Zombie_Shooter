@@ -9,7 +9,7 @@ public class HealthConsumableScritpable : ConsumableScriptable
     {
         if (playerController.healthComponent.CurrentHealth >= playerController.healthComponent.StartingHealth) return;
 
-        playerController.healthComponent.HealPlayer(effect);    
+        playerController.healthComponent.HealPlayer(effect);
 
         base.UseItem(playerController);
     }

@@ -30,12 +30,18 @@ public class ZombieAI : MonoBehaviour
     {
         attackRange = 1.0f;
         BuildBehaviourTree();
+
+        //InvokeRepeating(nameof(RunBehaviourTree), 0.0f, 0.25f);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        topNode.Evaluate();   
+        //RunBehaviourTree();
+    }
+
+    void RunBehaviourTree()
+    {
+        topNode.Evaluate();
     }
 
     void BuildBehaviourTree()

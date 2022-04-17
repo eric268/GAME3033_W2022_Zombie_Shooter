@@ -19,14 +19,10 @@ public class MoveTo : Node
 
     public override NodeState Evaluate()
     {
-        if (Vector3.Distance(leonAI.currentWaypointTarget.position, leonAI.transform.position) <= distanceBuffer)
+        float distance = Vector3.Distance(leonAI.currentWaypointTarget.position, leonAI.transform.position);
+        if (distance <= distanceBuffer)
         {
             return NodeState.FAILURE;
-        }
-
-        if (leonAI.mLeonController.mLeonState != LeonState.Slowed)
-        {
-            leonAI.FChangeState(LeonState.Running);
         }
 
         agent.SetDestination(leonAI.currentWaypointTarget.position);

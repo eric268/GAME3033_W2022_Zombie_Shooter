@@ -30,12 +30,13 @@ public class WeaponHolder : MonoBehaviour
     {
         playerController = GetComponent<PlayerController>();
         animator = GetComponent<Animator>();
+        weaponPanelUI = FindObjectOfType<WeaponPanelUI>();
     }
     void Start()
     {
         //EquipWeapon();
 
-       // spawnedWeapon = Instantiate(weaponToSpawn, weaponSocketLocation.transform.position, weaponSocketLocation.transform.rotation, weaponSocketLocation.transform);
+        // spawnedWeapon = Instantiate(weaponToSpawn, weaponSocketLocation.transform.position, weaponSocketLocation.transform.rotation, weaponSocketLocation.transform);
         //equippedWeapon = spawnedWeapon.GetComponent<WeaponComponent>();
         //gripSocketLocation = equippedWeapon.gripLocation;
         //equippedWeapon.Initalize(this);
@@ -63,6 +64,7 @@ public class WeaponHolder : MonoBehaviour
     {
         if (!equippedWeapon || playerController.isDead)
             return;
+
         playerController.isFiring = value.isPressed;
         firingPressed = playerController.isFiring;
         if (!playerController.isReloading && firingPressed)
@@ -121,7 +123,7 @@ public class WeaponHolder : MonoBehaviour
             wasFiring = true;
         }
         if (equippedWeapon.weaponStats.totalBullets <= 0)
-               return;
+            return;
         equippedWeapon.StartReloading();
 
         animator.SetBool(isReloadingHash, true);
@@ -150,7 +152,7 @@ public class WeaponHolder : MonoBehaviour
         spawnedWeapon = Instantiate(weaponScriptable.itemPrefab, weaponSocketLocation.transform.position, weaponSocketLocation.transform.rotation, weaponSocketLocation.transform);
         if (!spawnedWeapon)
             return;
-        
+
         equippedWeapon = spawnedWeapon.GetComponent<WeaponComponent>();
 
         if (!equippedWeapon)

@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
     private void OpenInventory(bool open)
     {
 
-        if(open)
+        if (open)
         {
             uiController.EnableInventoryMenu();
             GameManager.instance.EnableCursor(true);

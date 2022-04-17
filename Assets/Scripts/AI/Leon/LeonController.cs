@@ -25,6 +25,7 @@ public class LeonController : MonoBehaviour
     public float mSlowedSpeed = 2.5f;
     public float mRunSpeed = 4.0f;
     public float mSlowTimer = 0.2f;
+    public bool mIsDead;
 
     private void Awake()
     {
@@ -34,7 +35,7 @@ public class LeonController : MonoBehaviour
 
     void Start()
     {
-        mLeonState = LeonState.Idle;
+        mLeonState = LeonState.Running;
         if (animator)
         {
             OnStateChange(mLeonState);
@@ -71,6 +72,8 @@ public class LeonController : MonoBehaviour
                 mLeonState = LeonState.Dying;
                 animator.SetFloat(movementXHash, 0.0f);
                 animator.SetBool(isRunningHash, false);
+                mIsDead = true;
+                animator.Play("Death");
                 break;
         }
     }

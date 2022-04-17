@@ -28,6 +28,10 @@ public class AKComponent : WeaponComponent
             {
                 foreach (RaycastHit hit in hitArray)
                 {
+                    if (hit.collider.gameObject.name == "Zombie")
+                    {
+                        print("Found Zombvie");
+                    }
                     if (!hit.collider.isTrigger)
                     {
                         if (mZombieLayerMask == (mZombieLayerMask | 1 << hit.collider.gameObject.layer) && !mZombiesHit.Contains(hit.collider))

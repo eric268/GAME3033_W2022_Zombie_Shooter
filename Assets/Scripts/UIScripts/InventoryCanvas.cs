@@ -16,7 +16,7 @@ public class InventoryCanvas : GameHUDWidget
         PlayerController = FindObjectOfType<PlayerController>();
         CategoryButtons = GetComponentsInChildren<CategorySelectButton>().ToList();
         ItemDisplayPanel = GetComponentInChildren<ItemDisplayPanel>();
-        foreach(CategorySelectButton button in CategoryButtons)
+        foreach (CategorySelectButton button in CategoryButtons)
         {
             button.Initialize(this);
         }

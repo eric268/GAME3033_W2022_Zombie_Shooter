@@ -1027,9 +1027,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 209a9a152548e944689533d5348f5c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 10
-  runSpeed: 20
-  jumpForce: 7
+  walkSpeed: 0
+  runSpeed: 0
+  jumpForce: 0
   followTransform: {fileID: 4342361934173725445}
   aimSensativity: 0.1
 --- !u!114 &4342361935495816078
@@ -1055,6 +1055,7 @@ MonoBehaviour:
   uiController: {fileID: 0}
   weaponHolder: {fileID: 0}
   healthComponent: {fileID: 0}
+  mMovementComponent: {fileID: 0}
 --- !u!114 &4342361935495816083
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -29,18 +29,28 @@ public class LeonAI : MonoBehaviour
         currentWaypointTarget = wayPointArray[UnityEngine.Random.Range(0, wayPointArray.Length)];
         ConstructBehaviourTree();
 
+        InvokeRepeating(nameof(RunBehaviourTree), 0.0f, 0.25f);
+
     }
 
     // Update is called once per frame
     void Update()
+    {
+        if (mLeonController.mIsDead)
+        {
+            CancelInvoke();
+        }
+    }
+
+    void RunBehaviourTree()
     {
         topNode.Evaluate();
     }
 
     void ConstructBehaviourTree()
     {
-        SelectWaypoint selectNewWaypointNode = new SelectWaypoint(this, wayPointArray, currentWaypointTarget);
-        MoveTo moveToWaypointNode = new MoveTo(this, agent, 5.0f);
+        SelectWaypoint selectNewWaypointNode = new SelectWaypoint(this, wayPointArray, currentWaypointTarget, EQSNodeType.Filter_And_Score);
+        MoveTo moveToWaypointNode = new MoveTo(this, agent, 25.0f);
         FindTargetZombie findTargetZombie = new FindTargetZombie(this);
         IsLeonDeadNode isLeonDeadNode = new IsLeonDeadNode(this, agent);
 

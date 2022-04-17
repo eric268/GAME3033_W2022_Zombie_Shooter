@@ -998,6 +998,7 @@ GameObject:
   - component: {fileID: 5436214171197684035}
   - component: {fileID: 5436214171197684062}
   - component: {fileID: 5436214171197684063}
+  - component: {fileID: 5006271146037663822}
   m_Layer: 6
   m_Name: Leon
   m_TagString: Leon
@@ -1066,6 +1067,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcf475f3acd58664e882a6ae65f3c454, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mLeonState: 2
+  mSlowedSpeed: 2.5
+  mRunSpeed: 4
+  mSlowTimer: 0.2
+  mIsDead: 0
 --- !u!114 &5436214171197684062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1073,7 +1079,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5165670747505203062}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ba39f84a14565742b27114ca15a60d8, type: 3}
   m_Name: 
@@ -1085,6 +1091,7 @@ MonoBehaviour:
   wayPointArray: []
   currentWaypointTarget: {fileID: 0}
   targetPosition: {x: 0, y: 0, z: 0}
+  mLeonController: {fileID: 0}
 --- !u!195 &5436214171197684063
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1107,6 +1114,20 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &5006271146037663822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5165670747505203062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61bf62486f3863742ad1761b16f60cc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mStartingHealth: 500
+  mCurrentHealth: 500
 --- !u!1 &5218751738524953303
 GameObject:
   m_ObjectHideFlags: 0
