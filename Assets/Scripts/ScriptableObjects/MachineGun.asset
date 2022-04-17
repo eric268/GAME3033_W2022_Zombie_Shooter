@@ -10,26 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f3a7916501446a044b96c849d28a8fb4, type: 3}
-  m_Name: M4
+  m_Name: MachineGun
   m_EditorClassIdentifier: 
-  name: M4
+  name: MachineGun
   itemCategory: 1
-  itemPrefab: {fileID: 103036, guid: c656de207260bf54883c10f990df79db, type: 3}
+  itemPrefab: {fileID: 109154, guid: fc04164fe9fbe694d8efd0998a4af0f9, type: 3}
   stackable: 0
   maxSize: 1
   amountValue: 1
   weaponStats:
     weaponType: 2
     firingPattern: 1
-    weaponName: M4
-    damage: 50
-    bulletInClip: 20
-    clipSize: 20
+    weaponName: MachineGun
+    damage: 20
+    bulletInClip: 50
+    clipSize: 50
     fireStartDelay: 0
-    fireRate: 0.13
-    fireDistance: 500
+    fireRate: 0.09
+    fireDistance: 400
     repeating: 1
     weaponHitLayer:
       serializedVersion: 2
       m_Bits: 2147483647
-    totalBullets: 300
+    totalBullets: 350

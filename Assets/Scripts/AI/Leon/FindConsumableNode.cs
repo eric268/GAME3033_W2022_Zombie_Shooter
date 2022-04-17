@@ -10,6 +10,8 @@ public class FindConsumableNode : Node
     NavMeshAgent mAgent;
     LeonAI mLeonAI;
 
+    //Check if health is below certain threshold
+
    public FindConsumableNode(LeonAI leonAI, NavMeshAgent navMeshAgent, GameObject[] consumableArray)
    {
         mLeonAI = leonAI;
