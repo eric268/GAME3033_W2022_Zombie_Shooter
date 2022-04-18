@@ -31,6 +31,10 @@ public class LeonController : MonoBehaviour
     public GameObject mWeaponSocket;
     public Transform mFiringLocation;
     LeonAI mLeonAI;
+    float mFireRate = 0.3f;
+    public float mAccuracy;
+    public Transform mMeshPivotTransform;
+
 
     private void Awake()
     {
@@ -38,7 +42,8 @@ public class LeonController : MonoBehaviour
         mNavMeshAgent = GetComponent<NavMeshAgent>();
         mWeaponHolder = GetComponent<WeaponHolder>();
         mPlayerController = GetComponent<PlayerController>();
-        mLeonAI = GetComponent<LeonAI>();
+        mLeonAI = GetComponentInChildren<LeonAI>();
+
     }
 
     void Start()
@@ -50,20 +55,19 @@ public class LeonController : MonoBehaviour
             animator.SetFloat(verticalAimHash, 0.5f);
         }
 
-        //InvokeRepeating(nameof(CheckIfCanFire), 0.0f, 0.3f);
+        InvokeRepeating(nameof(CheckIfCanFire), 0.0f, mFireRate);
     }
 
     private void Update()
     {
-        if (mLeonAI.currentTarget && mWeaponHolder.equippedWeapon)
+        if (mLeonAI.currentTarget != null)
         {
-            InvokeRepeating(nameof(CheckIfCanFire), 0.0f, mWeaponHolder.equippedWeapon.weaponStats.fireRate);
+            mMeshPivotTransform.LookAt(mLeonAI.currentTarget.transform);
         }
         else
         {
-            CancelInvoke();
-            if (mLeonState == LeonState.Slowed)
-                Invoke(nameof(OnSlowEnded), mSlowTimer);
+            print(mMeshPivotTransform.rotation);
+            mMeshPivotTransform.rotation = Quaternion.identity;
         }
     }
 
@@ -79,7 +83,7 @@ public class LeonController : MonoBehaviour
                 animator.SetBool(isRunningHash, false);
                 break;
             case LeonState.Slowed:
-                CancelInvoke();
+                CancelInvoke(nameof(OnSlowEnded));
                 Invoke(nameof(OnSlowEnded), mSlowTimer);
                 mLeonState = LeonState.Slowed;
                 animator.SetFloat(movementXHash, 1.0f);
@@ -104,7 +108,7 @@ public class LeonController : MonoBehaviour
 
     void CheckIfCanFire()
     {
-        if (mWeaponHolder.equippedWeapon != null)
+        if (mLeonAI.currentTarget && mWeaponHolder.equippedWeapon)
         {
             mWeaponHolder.LeonStartFiring();
         }
@@ -119,8 +123,7 @@ public class LeonController : MonoBehaviour
     {
         if (mWeaponHolder.equippedWeapon != null)
         {
-            Invoke(nameof(OnSlowEnded), mSlowTimer);
-            InvokeRepeating(nameof(CheckIfCanFire), 0.0f, mWeaponHolder.equippedWeapon.weaponStats.fireRate);
+            mFireRate = mWeaponHolder.equippedWeapon.weaponStats.fireRate;
         }
     }
 }

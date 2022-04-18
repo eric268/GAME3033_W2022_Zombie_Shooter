@@ -260,6 +260,7 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 2147483647
     totalBullets: 300
+    weaponValueToAI: 4
   firingEffect: {fileID: 4717386566110179173}
   mZombieLayerMask:
     serializedVersion: 2

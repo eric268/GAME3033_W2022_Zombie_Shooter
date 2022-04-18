@@ -6,7 +6,7 @@ public class ItemPickupComponent : MonoBehaviour
 {
 
     [SerializeField]
-    ItemScript pickupItem;
+    public ItemScript pickupItem;
 
     [Tooltip("Manual Override for drop amount, if left at -1 it will use the amount from the scriptable object")]
     [SerializeField]
@@ -50,6 +50,7 @@ public class ItemPickupComponent : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        
         if (!other.CompareTag("Betty") && !other.CompareTag("Leon")) return;
 
         if (other.CompareTag("Betty"))

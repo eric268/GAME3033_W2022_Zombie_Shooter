@@ -33,3 +33,4 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 2147483647
     totalBullets: 300
+    weaponValueToAI: 4

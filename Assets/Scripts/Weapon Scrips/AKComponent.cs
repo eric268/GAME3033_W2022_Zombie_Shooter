@@ -32,10 +32,18 @@ public class AKComponent : WeaponComponent
             }
             else
             {
+                LeonAI leonAI = FindObjectOfType<LeonAI>();
+                if (!leonAI.currentTarget)
+                    return;
+
                 LeonController leonController = GetComponentInParent<LeonController>();
-                Ray screenRay = new Ray(leonController.mFiringLocation.position, leonController.transform.forward);
+                Vector3 targetPosOffset = leonAI.currentTarget.transform.transform.position;
+                Vector3 mTargetDirection = new Vector3(targetPosOffset.x, targetPosOffset.y + 1.5f, targetPosOffset.z)  - transform.position;
+
+                //Still need to add some form of accuraccy 
+                Ray screenRay = new Ray(leonController.mFiringLocation.position, mTargetDirection);
                 hitArray = Physics.RaycastAll(screenRay, weaponStats.fireDistance, weaponStats.weaponHitLayer);
-                Debug.DrawLine(leonController.mFiringLocation.position, leonController.mFiringLocation.position + leonController.transform.forward * weaponStats.fireDistance, Color.red, Time.deltaTime);
+                Debug.DrawLine(leonController.mFiringLocation.position, leonController.mFiringLocation.position + mTargetDirection * weaponStats.fireDistance, Color.red, Time.deltaTime);
             }
 
             if (hitArray.Length > 0)

@@ -34,6 +34,8 @@ public class FindConsumableNode : Node
         if (mLeonAI.mHealthComponent.mCurrentHealth > mLowHealthValue)
             return null;
 
+        Debug.Log("Find Consumable");
+
         foreach (GameObject consumable in mConsumableArray)
         {
             if (consumable.GetComponent<ItemPickupComponent>().mIsAvailable)

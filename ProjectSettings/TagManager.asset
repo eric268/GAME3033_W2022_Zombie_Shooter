@@ -10,6 +10,7 @@ TagManager:
   - Zombie
   - Weapon
   - Consumable
+  - Pivot
   layers:
   - Default
   - TransparentFX

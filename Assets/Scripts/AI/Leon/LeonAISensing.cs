@@ -4,8 +4,8 @@ using UnityEngine;
 
 public enum AISensingType
 {
-    Shoot_At,
     Close_By,
+    Shoot_At,
     Num_Sensing_Types,
 }
 

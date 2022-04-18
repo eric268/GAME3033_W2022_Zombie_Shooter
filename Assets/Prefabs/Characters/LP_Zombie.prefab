@@ -3435,7 +3435,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e722c2e952fd6c489bf271c7a567528, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mZombieState: 1
   mAttackStarted: 0
+  mAvoidanceValue: 0
   mAttackDamage: 20
 --- !u!114 &7965244820685351641
 MonoBehaviour:
@@ -8462,7 +8464,7 @@ GameObject:
   - component: {fileID: 7765443762602925020}
   - component: {fileID: 940065214866271207}
   - component: {fileID: 5038697192576534972}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: AttackCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

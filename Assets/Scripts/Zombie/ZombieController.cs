@@ -18,20 +18,16 @@ public class ZombieController : MonoBehaviour
     Animator animator;
     ZombieAttack mZombieAttack;
     NavMeshAgent mNavMeshAgent;
+    SensingColliderContainer[] mSensingColliderContainers;
+    Action<Collider> FRemoveDeadZombieCollider;
     public ZombieState mZombieState;
     private readonly int isDeadHash = Animator.StringToHash("isDead");
     private readonly int isRunningHash = Animator.StringToHash("isRunning");
     private readonly int isAttackingHash = Animator.StringToHash("isAttacking");
 
-    //public CapsuleCollider leftHandCollider;
-    //public CapsuleCollider rightHandCollider;
-
     public bool mAttackStarted = false;
     public int mAvoidanceValue;
     public int mAttackDamage;
-
-    //public int mZombieStartingHealth;
-    //public int mZombieCurrentHealth;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +38,13 @@ public class ZombieController : MonoBehaviour
         mLevelManager = FindObjectOfType<LevelManager>();
         mAvoidanceValue = mNavMeshAgent.avoidancePriority;
         FZombieDied = mLevelManager.ZombieKilled;
+        mSensingColliderContainers = FindObjectsOfType<SensingColliderContainer>();
+
+        for (int i = 0; i < mSensingColliderContainers.Length; i++)
+        {
+            FRemoveDeadZombieCollider += mSensingColliderContainers[i].RemoveDeadZombieCollider;
+        }
+
     }
 
     // Update is called once per frame
@@ -58,6 +61,7 @@ public class ZombieController : MonoBehaviour
         switch (state)
         {
             case ZombieState.Dead:
+                FRemoveDeadZombieCollider(GetComponent<CapsuleCollider>());
                 animator.SetBool(isDeadHash, true);
                 mZombieState = ZombieState.Dead;
                 FZombieDied();
@@ -105,5 +109,10 @@ public class ZombieController : MonoBehaviour
     private void OnDestroy()
     {
         FZombieDied -= mLevelManager.ZombieKilled;
+
+        for (int i = 0; i < mSensingColliderContainers.Length; i++)
+        {
+            FRemoveDeadZombieCollider -= mSensingColliderContainers[i].RemoveDeadZombieCollider;
+        }
     }
 }

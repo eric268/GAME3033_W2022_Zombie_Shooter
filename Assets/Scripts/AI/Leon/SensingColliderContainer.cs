@@ -7,9 +7,10 @@ public class SensingColliderContainer : MonoBehaviour
     public HashSet<Collider> zombieSensingCollider;
     public List<GameObject> tempTestColliderList;
     public SphereCollider collider;
-    public LayerMask zombieLayerMask;
+    public LayerMask targetLayerMask;
     // Start is called before the first frame update
-    void Start()
+
+    private void Awake()
     {
         collider = GetComponent<SphereCollider>();
         zombieSensingCollider = new HashSet<Collider>();
@@ -17,7 +18,7 @@ public class SensingColliderContainer : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (zombieLayerMask == (zombieLayerMask | 1 << other.gameObject.layer))
+        if (targetLayerMask == (targetLayerMask | 1 << other.gameObject.layer))
         {
             zombieSensingCollider.Add(other);
             tempTestColliderList.Add(other.gameObject);
@@ -28,5 +29,23 @@ public class SensingColliderContainer : MonoBehaviour
     {
         zombieSensingCollider.Remove(other);
         tempTestColliderList.Remove(other.gameObject);
+    }
+
+    public void RemoveDeadZombieCollider(Collider other)
+    {
+        if (zombieSensingCollider.Contains(other))
+            print("Collider found");
+        else
+        {
+            print("Collider not found");
+        }
+        zombieSensingCollider.Remove(other);
+        tempTestColliderList.Remove(other.gameObject);
+        zombieSensingCollider.TrimExcess();
+
+        foreach(Collider coll in zombieSensingCollider)
+        {
+            print(coll.gameObject.name);
+        }
     }
 }

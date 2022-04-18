@@ -101,7 +101,7 @@ public class WeaponHolder : MonoBehaviour
 
     void StartFiring()
     {
-        if (playerController.isDead || !playerController.canFire)
+        if (playerController.isDead || (!playerController.canFire && !CompareTag("Leon")))
             return;
 
         if (equippedWeapon.weaponStats.bulletInClip <= 0)

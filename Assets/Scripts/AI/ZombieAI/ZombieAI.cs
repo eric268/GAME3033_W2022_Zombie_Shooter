@@ -39,7 +39,7 @@ public class ZombieAI : MonoBehaviour
     {
         if (zombieController.mZombieState == ZombieState.Dead)
         {
-            CancelInvoke();
+            CancelInvoke(nameof(RunBehaviourTree));
         }
     }
 

@@ -16,7 +16,7 @@ public class IsLeonDeadNode : Node
     }
     public override NodeState Evaluate()
     {
-        if (mLeonAI.GetComponent<HealthComponent>().CurrentHealth <= 0.0f)
+        if (mLeonAI.GetComponentInParent<HealthComponent>().CurrentHealth <= 0.0f)
         {
             mLeonAI.FChangeState(LeonState.Dying);
             agent.isStopped = true;

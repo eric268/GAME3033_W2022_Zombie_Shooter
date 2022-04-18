@@ -30,7 +30,7 @@ public class FindWeaponNode : Node
         float closestConsumable = Mathf.Infinity;
         GameObject mTarget = null;
 
-        if (mLeonAI.mWeaponHolder.equippedWeapon != null)
+        if (mLeonAI.mWeaponHolder.equippedWeapon != null && mLeonAI.mWeaponHolder.equippedWeapon.weaponStats.totalBullets >= 10)
             return null;
 
         foreach (GameObject consumable in mConsumableArray)

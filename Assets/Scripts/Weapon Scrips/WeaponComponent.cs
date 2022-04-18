@@ -23,6 +23,7 @@ public struct WeaponStats
     public bool repeating;
     public LayerMask weaponHitLayer;
     public int totalBullets;
+    public int weaponValueToAI;
 }
 
 

@@ -14,7 +14,7 @@ public class HealthComponent : MonoBehaviour, IDamageable
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        //mCurrentHealth = mStartingHealth;
+        mCurrentHealth = mStartingHealth;
     }
 
     // Update is called once per frame
