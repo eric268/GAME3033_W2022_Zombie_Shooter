@@ -18,4 +18,4 @@ MonoBehaviour:
   stackable: 1
   maxSize: 10
   amountValue: 1
-  effect: 100
+  effect: 20

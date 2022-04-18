@@ -59,7 +59,7 @@ public class LeonAI : MonoBehaviour
 
     void ConstructBehaviourTree()
     {
-        SelectWaypoint selectNewWaypointNode = new SelectWaypoint(this, wayPointArray, currentWaypointTarget, 100.0f, EQSNodeType.Filter_And_Score);
+        SelectWaypoint selectNewWaypointNode = new SelectWaypoint(this, wayPointArray, currentWaypointTarget, 45.0f, EQSNodeType.Filter_And_Score);
         MoveTo moveToWaypointNode = new MoveTo(this, agent, 2.0f);
         FindTarget findTargetNode = new FindTarget(this, mBettyReference);
         IsLeonDeadNode isLeonDeadNode = new IsLeonDeadNode(this, agent);

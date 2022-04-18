@@ -9,11 +9,21 @@ public class InventoryCanvas : GameHUDWidget
 {
     private ItemDisplayPanel ItemDisplayPanel;
     private List<CategorySelectButton> CategoryButtons;
+    private PlayerController[] PC;
     private PlayerController PlayerController;
 
     private void Awake()
     {
-        PlayerController = FindObjectOfType<PlayerController>();
+        PC = FindObjectsOfType<PlayerController>();
+        for (int i = 0; i< PC.Length; i++)
+        {
+            if (PC[i].CompareTag("Betty"))
+            {
+                PlayerController = PC[i];
+                break;
+            }
+        }
+        //PlayerController = FindObjectOfType<PlayerController>();
         CategoryButtons = GetComponentsInChildren<CategorySelectButton>().ToList();
         ItemDisplayPanel = GetComponentInChildren<ItemDisplayPanel>();
         foreach (CategorySelectButton button in CategoryButtons)

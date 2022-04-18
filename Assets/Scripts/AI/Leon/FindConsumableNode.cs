@@ -23,7 +23,14 @@ public class FindConsumableNode : Node
 
     public override NodeState Evaluate()
     {
-        return (FindClosestConsumable()) ? NodeState.RUNNING : NodeState.FAILURE;
+        if (FindClosestConsumable())
+        {
+            return NodeState.SUCCESS;
+        }
+        else
+        {
+            return NodeState.FAILURE;
+        }
     }
 
     private GameObject FindClosestConsumable()

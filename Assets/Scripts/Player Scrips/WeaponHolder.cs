@@ -70,7 +70,6 @@ public class WeaponHolder : MonoBehaviour
 
         if (!value.isPressed)
         {
-            print("Released");
             playerController.canFire = true;
         }
 
@@ -107,6 +106,7 @@ public class WeaponHolder : MonoBehaviour
         if (equippedWeapon.weaponStats.bulletInClip <= 0)
         {
             StartReloading();
+            SoundEffects.PlaySound("DryShot");
             return;
         }
         animator.SetBool(isFiringHash, playerController.isFiring);
@@ -189,11 +189,12 @@ public class WeaponHolder : MonoBehaviour
             return;
 
         equippedWeapon.Initalize(this, weaponScriptable);
-        PlayerEvents.InvokeOnWeaponEquipped(equippedWeapon);
+
         gripSocketLocation = equippedWeapon.gripLocation;
 
         if (weaponPanelUI && CompareTag("Betty"))
         {
+            PlayerEvents.InvokeOnWeaponEquipped(equippedWeapon);
             weaponPanelUI.weaponComponent = equippedWeapon;
         }
     }

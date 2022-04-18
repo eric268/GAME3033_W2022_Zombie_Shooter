@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public enum LeonState
 {
@@ -66,7 +67,6 @@ public class LeonController : MonoBehaviour
         }
         else
         {
-            print(mMeshPivotTransform.rotation);
             mMeshPivotTransform.rotation = Quaternion.identity;
         }
     }
@@ -102,6 +102,8 @@ public class LeonController : MonoBehaviour
                 animator.SetBool(isRunningHash, false);
                 mIsDead = true;
                 animator.Play("Death");
+                Invoke(nameof(StartGameOver), 2.5f);
+                SoundEffects.PlaySound("LeonDead");
                 break;
         }
     }
@@ -112,6 +114,11 @@ public class LeonController : MonoBehaviour
         {
             mWeaponHolder.LeonStartFiring();
         }
+    }
+
+    void StartGameOver()
+    {
+        SceneManager.LoadScene("GameWon");
     }
 
     public void OnSlowEnded()

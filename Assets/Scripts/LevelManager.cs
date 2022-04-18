@@ -32,7 +32,7 @@ public class LevelManager : MonoBehaviour
     {
         CancelInvoke();
         mCurrentLevel++;
-        mZombiesToSpawnPerLevel = 5 * mCurrentLevel;
+        mZombiesToSpawnPerLevel = 5 + 5 * mCurrentLevel;
         mSpawnRate = 1.0f / mCurrentLevel;
         FUpdateLevelUI(mCurrentLevel);
         mLevelInfoUI.UpdateZombiesReaminingText(mActiveZombiesInLevel + mZombiesToSpawnPerLevel);

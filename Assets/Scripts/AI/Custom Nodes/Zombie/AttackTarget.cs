@@ -17,7 +17,6 @@ public class AttackTarget : Node
     {
         if (!zombieAI.currentTarget)
         {
-            Debug.Log("No current target set to attack");
             return NodeState.FAILURE;
         }
         zombieAI.FChangeState(ZombieState.Attacking);

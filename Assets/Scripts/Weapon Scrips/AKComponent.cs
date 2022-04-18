@@ -64,7 +64,6 @@ public class AKComponent : WeaponComponent
                         }
                         else if (mBettyLayerMask == (mBettyLayerMask | 1 << hit.collider.gameObject.layer) && !bettyHit && !transform.parent.CompareTag("Betty"))
                         {
-                            print("Betty slowed");
                             hit.collider.GetComponent<MovementComponent>().BeingSlowedEffect();
                         }
                     }

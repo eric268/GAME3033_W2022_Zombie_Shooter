@@ -17,7 +17,7 @@ public class ZombieSpawner : MonoBehaviour
 
         //Zombie health increases with level
         newZombie.GetComponent<HealthComponent>().mStartingHealth += 10 * mLevelManager.mCurrentLevel;
-        newZombie.GetComponent<HealthComponent>().mStartingHealth = newZombie.GetComponent<HealthComponent>().mCurrentHealth;
+        newZombie.GetComponent<HealthComponent>().mCurrentHealth = newZombie.GetComponent<HealthComponent>().mStartingHealth;
         int childCount = newZombie.transform.childCount;
 
         if (childCount > 1)

@@ -44,6 +44,7 @@ public class MovementComponent : MonoBehaviour
         animator = GetComponent<Animator>();
         playerController = GetComponent<PlayerController>();
         rigidBody = GetComponent<Rigidbody>();
+        playerController.isDead = false;
     }
 
     // Start is called before the first frame update

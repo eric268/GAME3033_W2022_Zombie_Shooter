@@ -61,7 +61,8 @@ public class ZombieController : MonoBehaviour
         switch (state)
         {
             case ZombieState.Dead:
-                FRemoveDeadZombieCollider(GetComponent<CapsuleCollider>());
+                if (GetComponent<CapsuleCollider>())
+                    FRemoveDeadZombieCollider(GetComponent<CapsuleCollider>());
                 animator.SetBool(isDeadHash, true);
                 mZombieState = ZombieState.Dead;
                 FZombieDied();

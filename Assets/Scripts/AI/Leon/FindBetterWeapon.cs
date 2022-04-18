@@ -42,7 +42,7 @@ public class FindBetterWeapon : Node
             foreach(GameObject obj in weaponPickUpArray)
             {
                 ItemPickupComponent item = obj.GetComponent<ItemPickupComponent>();
-                if (item.mIsAvailable && item.mItemValue >= leonAI.mWeaponHolder.equippedWeapon.weaponStats.weaponValueToAI)
+                if (item.mIsAvailable && item.mItemValue > leonAI.mWeaponHolder.equippedWeapon.weaponStats.weaponValueToAI)
                 {
                     if (Vector3.Distance(leonAI.transform.position, obj.transform.position) <= maxDistanceToGetGun)
                     {

@@ -53,15 +53,22 @@ public class ItemPickupComponent : MonoBehaviour
         
         if (!other.CompareTag("Betty") && !other.CompareTag("Leon")) return;
 
+        SoundEffects.PlaySound("PickUp");
+
         if (other.CompareTag("Betty"))
         {
             InventoryComponent playerInventory = other.GetComponent<InventoryComponent>();
-            if (other.gameObject.GetComponent<WeaponHolder>().equippedWeapon != null && itemInstance.name == other.gameObject.GetComponent<WeaponHolder>().equippedWeapon.weaponStats.weaponName)
+            WeaponHolder weaponHolder = other.gameObject.GetComponent<WeaponHolder>();
+            if (weaponHolder.equippedWeapon == null || (weaponHolder.equippedWeapon != null && itemInstance.name == weaponHolder.equippedWeapon.weaponStats.weaponName))
             {
-                itemInstance.UseItem(other.gameObject.GetComponent<PlayerController>());
+                if (playerInventory)
+                {
+                    playerInventory.AddItem(itemInstance, amount);
+                }
+                    itemInstance.UseItem(other.gameObject.GetComponent<PlayerController>());
                 if (weaponPanelUI)
                 {
-                    weaponPanelUI.weaponComponent = other.gameObject.GetComponent<WeaponHolder>().equippedWeapon;
+                    weaponPanelUI.weaponComponent = weaponHolder.equippedWeapon;
                 }
             }
             else if (playerInventory)
@@ -71,8 +78,16 @@ public class ItemPickupComponent : MonoBehaviour
         }
         else
         {
-            //other.GetComponent<LeonController>().RemoveCurrentWeapon();
-            itemInstance.UseItem(other.gameObject.GetComponent<PlayerController>());
+            WeaponHolder wP = other.GetComponent<WeaponHolder>();
+            WeaponScriptable wS = (WeaponScriptable)itemInstance;
+            if (wS)
+            {
+                wP.EquipWeapon(wS);
+            }
+            else
+            {
+                itemInstance.UseItem(other.gameObject.GetComponent<PlayerController>());
+            }
         }
 
         DeactivateComponent();

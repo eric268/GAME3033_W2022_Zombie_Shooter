@@ -7,7 +7,7 @@ public class WeaponPanelUI : MonoBehaviour
 {
     public TextMeshProUGUI weaponNameText;
     public TextMeshProUGUI currentBulletCountText;
-    public TextMeshProUGUI totalAmmoText;
+    public TextMeshProUGUI totalAmmoText2;
     public WeaponComponent weaponComponent;
 
     private void OnEnable()
@@ -31,6 +31,6 @@ public class WeaponPanelUI : MonoBehaviour
         
         weaponNameText.text = weaponComponent.weaponStats.weaponName;
         currentBulletCountText.text = weaponComponent.weaponStats.bulletInClip.ToString();
-        totalAmmoText.text = weaponComponent.weaponStats.totalBullets.ToString();
+        totalAmmoText2.text = weaponComponent.weaponStats.totalBullets.ToString();
     }
 }

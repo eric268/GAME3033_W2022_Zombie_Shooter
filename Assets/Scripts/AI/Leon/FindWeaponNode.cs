@@ -22,7 +22,7 @@ public class FindWeaponNode : Node
 
     public override NodeState Evaluate()
     {
-        return (FindClosestConsumable()) ? NodeState.RUNNING : NodeState.FAILURE;
+        return (FindClosestConsumable()) ? NodeState.SUCCESS : NodeState.FAILURE;
     }
 
     private GameObject FindClosestConsumable()

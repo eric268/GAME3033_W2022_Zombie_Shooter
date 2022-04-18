@@ -23,7 +23,7 @@ public class SelectWaypoint : EQSNode<WayPoint>
         currentWaypoint = _currentWaypoint;
         mEQSNodeType = _EQSType;
         minRange = 20;
-        maxRange = 70;
+        maxRange = 150;
         scoreForLessZombiesMultiplier = 1;
         scoreForRightAngleMultiplier = 2;
         mIdealAngle = idealAngle;

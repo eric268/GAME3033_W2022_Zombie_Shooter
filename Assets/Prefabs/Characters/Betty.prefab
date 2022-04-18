@@ -1033,7 +1033,8 @@ MonoBehaviour:
   followTransform: {fileID: 4342361934173725445}
   aimSensativity: 0.1
   mIsSlowed: 0
-  mSlowTimer: 0.2
+  mSlowTimer: 0.5
+  mSlowAmount: 0.375
 --- !u!114 &4342361935495816078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1052,6 +1053,7 @@ MonoBehaviour:
   isRunning: 0
   isAiming: 0
   isDead: 0
+  canFire: 0
   inInventory: 0
   inventory: {fileID: 0}
   uiController: {fileID: 0}

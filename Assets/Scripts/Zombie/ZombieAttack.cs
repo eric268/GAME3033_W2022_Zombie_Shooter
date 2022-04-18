@@ -24,9 +24,16 @@ public class ZombieAttack : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Betty") || other.gameObject.CompareTag("Leon"))
+        if (other.gameObject.CompareTag("Betty"))
         {
             other.gameObject.GetComponent<HealthComponent>().TakeDamage(GetComponentInParent<ZombieController>().mAttackDamage);
+            SoundEffects.PlaySound("BettyHit");
+        }
+        else if (other.gameObject.CompareTag("Leon"))
+        {
+            other.gameObject.GetComponent<HealthComponent>().TakeDamage(GetComponentInParent<ZombieController>().mAttackDamage);
+            SoundEffects.PlaySound("LeonHit");
+
         }
     }
 }

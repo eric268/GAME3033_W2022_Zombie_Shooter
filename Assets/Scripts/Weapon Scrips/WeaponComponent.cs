@@ -86,6 +86,21 @@ public class WeaponComponent : MonoBehaviour
     }   
     protected virtual void FireWeapon()
     {
+        switch (weaponStats.weaponName)
+        {
+            case "AK47":
+                SoundEffects.PlaySound("AKGunshot");
+                break;
+            case "M4":
+                SoundEffects.PlaySound("M4Gunshot");
+                break;
+            case "MachineGun":
+                SoundEffects.PlaySound("SMGGunshot");
+                break;
+            case "Pistol":
+                SoundEffects.PlaySound("Pistol");
+                break;
+        }
         weaponStats.bulletInClip--;
     }
 
@@ -93,6 +108,7 @@ public class WeaponComponent : MonoBehaviour
     {
         isReloading = true;
         ReloadWeapon();
+        SoundEffects.PlaySound("Reload");
     }
     public virtual void StopReloading()
     {

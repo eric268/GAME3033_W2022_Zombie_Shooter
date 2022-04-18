@@ -11,6 +11,7 @@ TagManager:
   - Weapon
   - Consumable
   - Pivot
+  - PauseMenu
   layers:
   - Default
   - TransparentFX

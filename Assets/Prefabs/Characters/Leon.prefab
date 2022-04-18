@@ -57,6 +57,7 @@ MonoBehaviour:
   mLowHealthLevel: 100
   mHealthComponent: {fileID: 0}
   mWeaponHolder: {fileID: 0}
+  mBettyReference: {fileID: 0}
 --- !u!1 &254863917200193860
 GameObject:
   m_ObjectHideFlags: 0
@@ -1190,9 +1191,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mLeonState: 2
-  mSlowedSpeed: 2.5
+  mSlowedSpeed: 1.5
   mRunSpeed: 4
-  mSlowTimer: 0.2
+  mSlowTimer: 0.5
   mIsDead: 0
   mWeaponSocket: {fileID: 4869869900650290374}
   mFiringLocation: {fileID: 3222379851314357550}
