@@ -10,6 +10,7 @@ public class FindWeaponNode : Node
     NavMeshAgent mAgent;
     LeonAI mLeonAI;
 
+
     //Check if no weapon or no ammo
 
     public FindWeaponNode(LeonAI leonAI, NavMeshAgent navMeshAgent, GameObject[] consumableArray)
@@ -26,17 +27,20 @@ public class FindWeaponNode : Node
 
     private GameObject FindClosestConsumable()
     {
-        float distanceToConsumable = -Mathf.Infinity;
+        float closestConsumable = Mathf.Infinity;
         GameObject mTarget = null;
+
+        if (mLeonAI.mWeaponHolder.equippedWeapon != null)
+            return null;
 
         foreach (GameObject consumable in mConsumableArray)
         {
             if (consumable.GetComponent<ItemPickupComponent>().mIsAvailable)
             {
-                float maxDistance = Vector3.Distance(consumable.transform.position, mLeonAI.transform.position);
-                if (distanceToConsumable < maxDistance)
+                float distance = Vector3.Distance(mLeonAI.transform.position,consumable.transform.position);
+                if (distance < closestConsumable)
                 {
-                    distanceToConsumable = maxDistance;
+                    closestConsumable = distance;
                     mTarget = consumable;
                 }
             }
@@ -46,6 +50,7 @@ public class FindWeaponNode : Node
         {
             mAgent.SetDestination(mTarget.transform.position);
             mAgent.isStopped = false;
+            Debug.DrawLine(mTarget.transform.position, mTarget.transform.position + 5 * Vector3.up);
         }
 
         return mTarget;

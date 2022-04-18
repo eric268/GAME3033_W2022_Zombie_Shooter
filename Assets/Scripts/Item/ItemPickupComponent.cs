@@ -18,6 +18,7 @@ public class ItemPickupComponent : MonoBehaviour
     ItemScript itemInstance;
     public bool mIsAvailable = true;
     public int mRespawnTimer = 10;
+    public int mItemValue = 0;
 
     // Start is called before the first frame update
     void Start()

@@ -32,12 +32,15 @@ public class ZombieAI : MonoBehaviour
         attackRange = 1.2f;
         BuildBehaviourTree();
 
-        //InvokeRepeating(nameof(RunBehaviourTree), 0.0f, 0.25f);
+        InvokeRepeating(nameof(RunBehaviourTree), 0.0f, 0.25f);
     }
 
     private void FixedUpdate()
     {
-        //RunBehaviourTree();
+        if (zombieController.mZombieState == ZombieState.Dead)
+        {
+            CancelInvoke();
+        }
     }
 
     void RunBehaviourTree()

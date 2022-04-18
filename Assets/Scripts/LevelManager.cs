@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,23 +11,37 @@ public class LevelManager : MonoBehaviour
     public int mMaxPossibleActiveZombie = 25;
     public float mTimeBetweenLevels = 10.0f;
     public float mSpawnRate;
-
+    LevelInfoUI mLevelInfoUI;
     ZombieSpawner[] mZombieSpawner;
+    Action<int> FUpdateLevelUI;
 
+    private void Awake()
+    {
+        mZombieSpawner = FindObjectsOfType<ZombieSpawner>();
+        mLevelInfoUI = FindObjectOfType<LevelInfoUI>();
+    }
     // Start is called before the first frame update
     void Start()
     {
-        mZombieSpawner = FindObjectsOfType<ZombieSpawner>();
-        Invoke(nameof(NewLevelStarted), mTimeBetweenLevels);
+        FUpdateLevelUI = mLevelInfoUI.NewLevelStarted;
+        StartNewLevel();
+
     }
 
-    void NewLevelStarted()
+    void StartNewLevel()
     {
         CancelInvoke();
         mCurrentLevel++;
         mZombiesToSpawnPerLevel = 5 * mCurrentLevel;
         mSpawnRate = 1.0f / mCurrentLevel;
-        BeingSpawningZombies();
+        FUpdateLevelUI(mCurrentLevel);
+        mLevelInfoUI.UpdateZombiesReaminingText(mActiveZombiesInLevel + mZombiesToSpawnPerLevel);
+        StartLevel();
+    }
+
+    void StartLevel()
+    {
+        Invoke(nameof(BeingSpawningZombies), mTimeBetweenLevels);
     }
 
     void BeingSpawningZombies()
@@ -36,12 +51,15 @@ public class LevelManager : MonoBehaviour
 
     void SpawnZombie()
     {
+        if (mActiveZombiesInLevel > mMaxPossibleActiveZombie)
+            return;
+
         mActiveZombiesInLevel++;
         mZombiesToSpawnPerLevel--;
         
         if (mZombieSpawner.Length > 0)
         { 
-            int ranSpawner = Random.Range(0, mZombieSpawner.Length);
+            int ranSpawner = UnityEngine.Random.Range(0, mZombieSpawner.Length);
             mZombieSpawner[ranSpawner].SpawnZombie();
         }
         //Stop spawning when max reached
@@ -54,10 +72,11 @@ public class LevelManager : MonoBehaviour
     public void ZombieKilled()
     {
         mActiveZombiesInLevel--;
+        mLevelInfoUI.UpdateZombiesReaminingText(mActiveZombiesInLevel + mZombiesToSpawnPerLevel);
         print(mActiveZombiesInLevel);
         if (mActiveZombiesInLevel == 0 && mZombiesToSpawnPerLevel == 0)
         {
-            NewLevelStarted();
+            StartNewLevel();
         }
     }    
 }

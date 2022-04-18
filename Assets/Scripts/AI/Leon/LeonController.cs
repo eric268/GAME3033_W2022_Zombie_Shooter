@@ -30,6 +30,7 @@ public class LeonController : MonoBehaviour
     PlayerController mPlayerController;
     public GameObject mWeaponSocket;
     public Transform mFiringLocation;
+    LeonAI mLeonAI;
 
     private void Awake()
     {
@@ -37,6 +38,7 @@ public class LeonController : MonoBehaviour
         mNavMeshAgent = GetComponent<NavMeshAgent>();
         mWeaponHolder = GetComponent<WeaponHolder>();
         mPlayerController = GetComponent<PlayerController>();
+        mLeonAI = GetComponent<LeonAI>();
     }
 
     void Start()
@@ -53,7 +55,16 @@ public class LeonController : MonoBehaviour
 
     private void Update()
     {
-        CheckIfCanFire();
+        if (mLeonAI.currentTarget && mWeaponHolder.equippedWeapon)
+        {
+            InvokeRepeating(nameof(CheckIfCanFire), 0.0f, mWeaponHolder.equippedWeapon.weaponStats.fireRate);
+        }
+        else
+        {
+            CancelInvoke();
+            if (mLeonState == LeonState.Slowed)
+                Invoke(nameof(OnSlowEnded), mSlowTimer);
+        }
     }
 
     // Start is called before the first frame update
@@ -70,7 +81,6 @@ public class LeonController : MonoBehaviour
             case LeonState.Slowed:
                 CancelInvoke();
                 Invoke(nameof(OnSlowEnded), mSlowTimer);
-                InvokeRepeating(nameof(CheckIfCanFire), 0.0f, 0.3f);
                 mLeonState = LeonState.Slowed;
                 animator.SetFloat(movementXHash, 1.0f);
                 animator.SetBool(isRunningHash, false);
@@ -105,8 +115,12 @@ public class LeonController : MonoBehaviour
         OnStateChange(LeonState.Running);
     }
 
-    public void RemoveCurrentWeapon()
+    public void WeaponPickedUp()
     {
-
+        if (mWeaponHolder.equippedWeapon != null)
+        {
+            Invoke(nameof(OnSlowEnded), mSlowTimer);
+            InvokeRepeating(nameof(CheckIfCanFire), 0.0f, mWeaponHolder.equippedWeapon.weaponStats.fireRate);
+        }
     }
 }

@@ -139,7 +139,7 @@ MonoBehaviour:
     bulletInClip: 12
     clipSize: 12
     fireStartDelay: 0
-    fireRate: 1
+    fireRate: 0.4
     fireDistance: 400
     repeating: 0
     weaponHitLayer:
@@ -149,7 +149,7 @@ MonoBehaviour:
   firingEffect: {fileID: 4691149852152053938}
   mZombieLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   mLeonLayerMask:
     serializedVersion: 2
     m_Bits: 64

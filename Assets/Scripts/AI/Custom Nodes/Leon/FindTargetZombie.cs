@@ -52,7 +52,7 @@ public class FindTargetZombie : Node
 
     public override NodeState Evaluate()
     {
-        leonAI.currentTargetZombie = FindClosestZombieWithLOS();
+        leonAI.currentTarget = FindClosestZombieWithLOS();
         return NodeState.SUCCESS;
     }
 }

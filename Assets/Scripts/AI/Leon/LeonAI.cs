@@ -11,7 +11,7 @@ public class LeonAI : MonoBehaviour
     public SphereCollider collider;
     public Node topNode;
     public LeonAISensing leonAISensing;
-    public GameObject currentTargetZombie;
+    public GameObject currentTarget;
     public WayPoint[] wayPointArray;
     public WayPoint currentWaypointTarget;
     public Vector3 targetPosition;
@@ -20,9 +20,10 @@ public class LeonAI : MonoBehaviour
     public GameObject[] mConsumableArray;
     public GameObject[] mWeaponPickupArray;
     public ItemPickupComponent[] testComp;
+    public int mLowHealthLevel;
 
-    HealthComponent mHealthComponent;
-    WeaponComponent mWeaponComonent;
+    public HealthComponent mHealthComponent;
+    public WeaponHolder mWeaponHolder;
 
     // Start is called before the first frame update
     void Start()
@@ -36,13 +37,10 @@ public class LeonAI : MonoBehaviour
         mConsumableArray = GameObject.FindGameObjectsWithTag("Consumable");
         mWeaponPickupArray = GameObject.FindGameObjectsWithTag("Weapon");
         mHealthComponent = GetComponent<HealthComponent>();
-        mWeaponComonent = GetComponent<WeaponComponent>();
+        mWeaponHolder = GetComponent<WeaponHolder>();
 
         ConstructBehaviourTree();
-
-
-        //InvokeRepeating(nameof(RunBehaviourTree), 0.0f, 0.25f);
-
+        InvokeRepeating(nameof(RunBehaviourTree), 0.0f, 0.25f);
     }
 
     // Update is called once per frame
@@ -51,6 +49,11 @@ public class LeonAI : MonoBehaviour
         if (mLeonController.mIsDead)
         {
             CancelInvoke();
+        }
+
+        if (currentTarget)
+        {
+            transform.LookAt(currentTarget.transform);
         }
     }
 
@@ -66,15 +69,16 @@ public class LeonAI : MonoBehaviour
         FindTargetZombie findTargetZombie = new FindTargetZombie(this);
         IsLeonDeadNode isLeonDeadNode = new IsLeonDeadNode(this, agent);
 
-        FindConsumableNode findWeaponNode = new FindConsumableNode(this, agent, mWeaponPickupArray);
+        FindWeaponNode findWeaponNode = new FindWeaponNode(this, agent, mWeaponPickupArray);
         FindConsumableNode findConsumableNode = new FindConsumableNode(this, agent, mConsumableArray);
 
         Sequence moveAndShootSequence = new Sequence(new List<Node> { moveToWaypointNode, findTargetZombie });
-
-
         Selector findConsumableIfNeeded = new Selector(new List<Node> { findWeaponNode, findConsumableNode });
 
         topNode = new Selector(new List<Node> { isLeonDeadNode, findConsumableIfNeeded,  moveAndShootSequence, selectNewWaypointNode });
+
+        //Create sequencer for topNode
+        //Contains selector above and a selector of finding and setting the current target
     }
 
     private void OnDestroy()

@@ -26,7 +26,7 @@ MonoBehaviour:
     bulletInClip: 12
     clipSize: 12
     fireStartDelay: 0
-    fireRate: 1
+    fireRate: 0.4
     fireDistance: 400
     repeating: 0
     weaponHitLayer:

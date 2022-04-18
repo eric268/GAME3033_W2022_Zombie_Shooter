@@ -6,9 +6,19 @@ using TMPro;
 public class LevelInfoUI : MonoBehaviour
 {
     public TextMeshProUGUI mCurrentLevelNumberText;
+    public TextMeshProUGUI mZombiesRemainingText;
 
     private void Start()
     {
-       // mCurrentLevelNumberText.text;
+    }
+
+    public void NewLevelStarted(int level)
+    {
+        mCurrentLevelNumberText.text = "Round " + level;
+    }
+
+    public void UpdateZombiesReaminingText(int zombiesRemaining)
+    {
+        mZombiesRemainingText.text = "Zombies Remaining  " + zombiesRemaining;
     }
 }

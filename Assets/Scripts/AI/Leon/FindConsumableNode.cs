@@ -9,6 +9,7 @@ public class FindConsumableNode : Node
     GameObject[] mConsumableArray;
     NavMeshAgent mAgent;
     LeonAI mLeonAI;
+    float mLowHealthValue;
 
     //Check if health is below certain threshold
 
@@ -17,6 +18,7 @@ public class FindConsumableNode : Node
         mLeonAI = leonAI;
         mAgent = navMeshAgent;
         mConsumableArray = consumableArray;
+        mLowHealthValue = leonAI.mLowHealthLevel;
    }
 
     public override NodeState Evaluate()
@@ -28,6 +30,9 @@ public class FindConsumableNode : Node
     {
         float distanceToConsumable = -Mathf.Infinity;
         GameObject mTarget = null;
+
+        if (mLeonAI.mHealthComponent.mCurrentHealth > mLowHealthValue)
+            return null;
 
         foreach (GameObject consumable in mConsumableArray)
         {

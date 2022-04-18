@@ -18,6 +18,7 @@ public class ZombieController : MonoBehaviour
     Animator animator;
     ZombieAttack mZombieAttack;
     NavMeshAgent mNavMeshAgent;
+    public ZombieState mZombieState;
     private readonly int isDeadHash = Animator.StringToHash("isDead");
     private readonly int isRunningHash = Animator.StringToHash("isRunning");
     private readonly int isAttackingHash = Animator.StringToHash("isAttacking");
@@ -58,13 +59,16 @@ public class ZombieController : MonoBehaviour
         {
             case ZombieState.Dead:
                 animator.SetBool(isDeadHash, true);
+                mZombieState = ZombieState.Dead;
                 FZombieDied();
                 break;
             case ZombieState.Running:
+                mZombieState = ZombieState.Running;
                 animator.SetBool(isRunningHash, true);
                 mNavMeshAgent.avoidancePriority = mAvoidanceValue;
                 break;
             case ZombieState.Attacking:
+                mZombieState = ZombieState.Attacking;
                 animator.SetBool(isAttackingHash, true);
                 mNavMeshAgent.avoidancePriority = mAvoidanceValue + 10;
                 break;

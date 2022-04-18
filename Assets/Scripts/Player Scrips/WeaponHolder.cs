@@ -192,7 +192,7 @@ public class WeaponHolder : MonoBehaviour
         PlayerEvents.InvokeOnWeaponEquipped(equippedWeapon);
         gripSocketLocation = equippedWeapon.gripLocation;
 
-        if (weaponPanelUI)
+        if (weaponPanelUI && CompareTag("Betty"))
         {
             weaponPanelUI.weaponComponent = equippedWeapon;
         }
